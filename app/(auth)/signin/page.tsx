@@ -1,13 +1,42 @@
+"use client";
 import Form from "@/components/Form/Form";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function SignIn() {
-    const signInConfig = {
+    const [form, setForm] = useState({ email: "", password: "" });
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm((currentForm) => ({
+            ...currentForm,
+            [e.target.name]: e.target.value,
+        }));
+    };
+    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const { email, password } = form;
+
+        try {
+            const data = await signIn("credentials", {
+                redirect: false,
+                email,
+                password,
+            });
+
+            console.log(data);
+            setForm({ email: "", password: "" });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const formConfig = {
         title: "Sign in",
         subtitle:
             "Continue if you are an admin, faculty, or an enrolled student.",
         formProps: {
             method: "POST",
             autoComplete: "off",
+            onSubmit: submitHandler,
         },
         formInputs: [
             {
@@ -18,6 +47,8 @@ export default function SignIn() {
                     name: "email",
                     placeholder: "Email address...",
                     required: true,
+                    value: form.email,
+                    onChange: onChangeHandler,
                 },
             },
             {
@@ -28,6 +59,8 @@ export default function SignIn() {
                     name: "password",
                     placeholder: "Password...",
                     required: true,
+                    value: form.password,
+                    onChange: onChangeHandler,
                 },
             },
         ],
@@ -38,14 +71,14 @@ export default function SignIn() {
         links: [
             {
                 text: "Forgotten password?",
-                href: "/reset-password",
+                href: "/forgot-password",
             },
         ],
     };
 
     return (
         <>
-            <Form {...signInConfig}></Form>
+            <Form {...formConfig}></Form>
         </>
     );
 }

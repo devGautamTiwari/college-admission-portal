@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.message {
+    font-family: sans-serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 0.25em;
+}
+
+.message__icon {
+    --size: 6em;
+    width: var(--size);
+    height: var(--size);
+    &--loading {
+        animation: rotate infinite 3s ease-in-out;
+    }
+}
+
+.link {
+    font-size: 14px;
+    color: #1a5ee5;
+    text-decoration: underline;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}

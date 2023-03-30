@@ -1,0 +1,100 @@
+.main {
+    min-height: 100vh;
+    font-family: "Montserrat", sans-serif;
+}
+
+.section {
+    &__heading {
+        font-size: 3em;
+        font-weight: 800;
+    }
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        // align-items: center;
+    }
+    &__hero {
+        $sidePadding: 5em;
+
+        position: relative;
+        color: #fff;
+        background: url("/static/hero-bg.png");
+        background-position: center;
+        background-size: cover;
+        min-height: calc(100vh - var(--navbar-height));
+        display: flex;
+        align-items: flex-end;
+        padding: 10em $sidePadding;
+        z-index: 1;
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #000;
+            opacity: 0.6;
+            z-index: -1;
+        }
+        &__location {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            gap: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            padding: 3em $sidePadding;
+            opacity: 0.8;
+        }
+        &__content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5em;
+        }
+
+        &__heading {
+            font-size: 3em;
+            line-height: 1.2;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+        }
+        &__scrolldown {
+            position: absolute;
+            margin: 3em;
+            bottom: 0;
+            right: 0;
+
+            cursor: pointer;
+        }
+        &__btngroup {
+            display: flex;
+            gap: 2em;
+            font-family: "EB Garamond", serif;
+            font-size: 1.25em;
+            font-weight: 500;
+        }
+    }
+    &__about {
+        padding: 5em 2em;
+        &__content {
+            margin-top: 1.5em;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5em;
+            max-width: 1400px;
+            &__text {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+                font-size: 1em;
+                font-weight: 500;
+                max-width: 600px;
+            }
+        }
+        &__img {
+            object-fit: cover;
+            border-radius: 0.75em;
+        }
+    }
+}

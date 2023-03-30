@@ -1,10 +1,8 @@
-import "./globals.scss";
+"use client";
+import { SessionProvider } from "next-auth/react";
 import Navbar from "@/components/Navbar/Navbar";
-
-export const metadata = {
-    title: "College Admission Portal",
-    description: "College Admission Portal",
-};
+import "./globals.scss";
+import { ToastContainer } from "react-toastify";
 
 export default function RootLayout({
     children,
@@ -14,8 +12,22 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Navbar />
-                <main>{children}</main>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
+                <SessionProvider>
+                    <Navbar />
+                    <main>{children}</main>
+                </SessionProvider>
             </body>
         </html>
     );

@@ -1,10 +1,22 @@
+"use client";
+import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import styles from "./auth.module.scss";
 
-export default function AuthLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+const defaultCallbackUrl = "/dashboard";
+export default function Layout({ children }: { children: React.ReactNode }) {
+    const session = useSession();
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const callbackUrl =
+        (searchParams?.get("callbackUrl") as string) || defaultCallbackUrl;
+    useEffect(() => {
+        if (session.status === "loading") {
+        } else if (session.status === "authenticated") {
+            router.replace(callbackUrl);
+        }
+    }, [callbackUrl, router, session]);
     return (
         <>
             <section className={styles.section}>

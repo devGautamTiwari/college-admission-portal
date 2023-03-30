@@ -1,13 +1,32 @@
+"use client";
 import Form from "@/components/Form/Form";
+import axios from "axios";
+import { useState } from "react";
 
-export default function ResetPassword() {
-    const signInConfig = {
+export default function ForgotPassword() {
+    const [email, setEmail] = useState("");
+
+    const sendResetEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const { data } = await axios.post("/api/forgot-password", {
+                email,
+            });
+
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const forgotPasswordConfig = {
         title: "Reset your Password",
         subtitle:
             "A link to reset your password will be sent to your email address.",
         formProps: {
-            method: "POST",
             autoComplete: "off",
+            onSubmit: sendResetEmail,
         },
         formInputs: [
             {
@@ -18,6 +37,8 @@ export default function ResetPassword() {
                     name: "email",
                     placeholder: "Email address...",
                     required: true,
+                    value: email,
+                    onChange: (e) => setEmail(e.target.value),
                 },
             },
         ],
@@ -35,7 +56,7 @@ export default function ResetPassword() {
 
     return (
         <>
-            <Form {...signInConfig}></Form>
+            <Form {...forgotPasswordConfig}></Form>
         </>
     );
 }

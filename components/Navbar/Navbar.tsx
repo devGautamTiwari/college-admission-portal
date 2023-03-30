@@ -11,7 +11,7 @@ export default function Navbar() {
                     </li>
                     <li>
                         <a href="#" className="btn btn-primary">
-                            Apply for admission
+                            Apply now
                         </a>
                     </li>
                 </ul>

@@ -45,12 +45,16 @@ export default function Form({
             <form className={styles.form} {...formProps}>
                 {formInputs.map(({ label, inputProps }) => (
                     <div className="input-group" key={inputProps.id}>
-                        <label htmlFor="email">{label}</label>
+                        <label htmlFor={inputProps.id}>{label}</label>
                         <input {...inputProps} />
                     </div>
                 ))}
 
-                <button className="btn btn-primary" {...submitBtn.btnProps}>
+                <button
+                    className="btn btn-primary"
+                    type="submit"
+                    {...submitBtn.btnProps}
+                >
                     {submitBtn.text}
                 </button>
                 <div className={styles.links__container}>

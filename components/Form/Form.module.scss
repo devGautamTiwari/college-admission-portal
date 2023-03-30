@@ -3,8 +3,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 290px;
+    max-width: 320px;
+    width: 100%;
     position: relative;
+    padding: 1em;
 }
 
 .logo {
@@ -16,7 +18,7 @@
 }
 
 .title {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 3em;
     line-height: 1;
 }
@@ -35,6 +37,9 @@
     gap: 1em;
     margin-top: 1em;
     margin-bottom: 1.325em;
+    & > button[type="submit"] {
+        margin-top: 0.25em;
+    }
 }
 
 .links__container {
