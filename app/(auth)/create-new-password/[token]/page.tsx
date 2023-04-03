@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import React, { useState } from "react";
 const Form = dynamic(() => import("@/components/Form/Form"));
 interface Props {
     params: {
@@ -12,7 +12,7 @@ export default function ResetPassword({ params }: Props) {
     const { token } = params;
     const [form, setForm] = useState({ password: "", confirmPassword: "" });
 
-    const onChangeHandler = (e) => {
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm((currentForm) => ({
             ...currentForm,
             [e.target.name]: e.target.value,
