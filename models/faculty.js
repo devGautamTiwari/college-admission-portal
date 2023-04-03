@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 
-const userSchema = new mongoose.Schema({
+const facultySchema = new mongoose.Schema({
     name: {
         type: String,
     },
@@ -19,9 +19,13 @@ const userSchema = new mongoose.Schema({
     userRole: { type: String },
     validEmail: { type: Boolean, default: 0 },
     emailToken: { type: String },
+    aadhaar: { type: String },
+    phone: { type: String },
+    dateOfBirth: { type: String },
+    gender: { type: String },
 });
 
-userSchema.pre("save", async function (next) {
+facultySchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
         next();
     }
@@ -29,4 +33,5 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-export default mongoose.models.User || mongoose.model("User", userSchema);
+export default mongoose.models.Faculty ||
+    mongoose.model("Faculty", facultySchema);

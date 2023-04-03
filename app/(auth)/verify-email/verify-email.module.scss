@@ -24,15 +24,6 @@
 
 .link {
     font-size: 14px;
-    color: #1a5ee5;
+    color: var(--link-color);
     text-decoration: underline;
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0);
-    }
-    to {
-        transform: rotate(1turn);
-    }
 }

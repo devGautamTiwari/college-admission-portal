@@ -1,22 +1,29 @@
 "use client";
-import Form from "@/components/Form/Form";
+import RadioGroup from "@/components/RadioGroup/RadioGroup";
 import axios from "axios";
+import dynamic from "next/dynamic";
 import { useState } from "react";
+const Form = dynamic(() => import("@/components/Form/Form"));
 
 export default function ForgotPassword() {
-    const [email, setEmail] = useState("");
-
+    const [form, setForm] = useState({ email: "", userRole: "" });
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm((currentForm) => ({
+            ...currentForm,
+            [e.target.name]: e.target.value,
+        }));
+    };
     const sendResetEmail = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
             const { data } = await axios.post("/api/forgot-password", {
-                email,
+                ...form,
             });
 
             console.log(data);
         } catch (error) {
-            console.log(error);
+            console.log(error?.response?.data || error?.message);
         }
     };
 
@@ -25,7 +32,7 @@ export default function ForgotPassword() {
         subtitle:
             "A link to reset your password will be sent to your email address.",
         formProps: {
-            autoComplete: "off",
+            // autoComplete: "off",
             onSubmit: sendResetEmail,
         },
         formInputs: [
@@ -37,8 +44,8 @@ export default function ForgotPassword() {
                     name: "email",
                     placeholder: "Email address...",
                     required: true,
-                    value: email,
-                    onChange: (e) => setEmail(e.target.value),
+                    value: form.email,
+                    onChange: onChangeHandler,
                 },
             },
         ],
@@ -53,10 +60,43 @@ export default function ForgotPassword() {
             },
         ],
     };
-
+    const roleList = [
+        {
+            label: "Admin",
+            inputProps: {
+                id: "admin",
+                value: "admin",
+                required: true,
+            },
+        },
+        {
+            label: "Faculty",
+            inputProps: {
+                id: "faculty",
+                value: "faculty",
+                required: true,
+            },
+        },
+        {
+            label: "Student",
+            inputProps: {
+                id: "student",
+                value: "student",
+                required: true,
+            },
+        },
+    ];
     return (
         <>
-            <Form {...forgotPasswordConfig}></Form>
+            <Form {...forgotPasswordConfig}>
+                <RadioGroup
+                    groupLabel={"Role"}
+                    groupName="userRole"
+                    checked={form.userRole}
+                    onChange={onChangeHandler}
+                    list={roleList}
+                />
+            </Form>
         </>
     );
 }

@@ -1,10 +1,11 @@
 "use client";
-import Form from "@/components/Form/Form";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import Form from "@/components/Form/Form";
+import RadioGroup from "@/components/RadioGroup/RadioGroup";
 
 export default function SignIn() {
-    const [form, setForm] = useState({ email: "", password: "" });
+    const [form, setForm] = useState({ email: "", password: "", role: "" });
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm((currentForm) => ({
             ...currentForm,
@@ -13,19 +14,20 @@ export default function SignIn() {
     };
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const { email, password } = form;
+        const { email, password, role } = form;
 
         try {
             const data = await signIn("credentials", {
                 redirect: false,
                 email,
                 password,
+                userRole: role,
             });
 
             console.log(data);
-            setForm({ email: "", password: "" });
+            setForm({ email: "", password: "", role: "" });
         } catch (error) {
-            console.log(error);
+            console.log(error?.response?.data || error?.message);
         }
     };
 
@@ -34,8 +36,7 @@ export default function SignIn() {
         subtitle:
             "Continue if you are an admin, faculty, or an enrolled student.",
         formProps: {
-            method: "POST",
-            autoComplete: "off",
+            // autoComplete: "off",
             onSubmit: submitHandler,
         },
         formInputs: [
@@ -66,7 +67,6 @@ export default function SignIn() {
         ],
         submitBtn: {
             text: "Sign in",
-            btnProps: {},
         },
         links: [
             {
@@ -75,10 +75,43 @@ export default function SignIn() {
             },
         ],
     };
-
+    const roleList = [
+        {
+            label: "Admin",
+            inputProps: {
+                id: "admin",
+                value: "admin",
+                required: true,
+            },
+        },
+        {
+            label: "Faculty",
+            inputProps: {
+                id: "faculty",
+                value: "faculty",
+                required: true,
+            },
+        },
+        {
+            label: "Student",
+            inputProps: {
+                id: "student",
+                value: "student",
+                required: true,
+            },
+        },
+    ];
     return (
         <>
-            <Form {...formConfig}></Form>
+            <Form {...formConfig}>
+                <RadioGroup
+                    groupLabel={"Role"}
+                    groupName="role"
+                    checked={form.role}
+                    onChange={onChangeHandler}
+                    list={roleList}
+                />
+            </Form>
         </>
     );
 }

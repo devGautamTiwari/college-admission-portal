@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import dbConnect from "../../../config/dbConnect";
-import User from "../../../models/user";
+import Student from "../../../models/student";
+import Faculty from "../../../models/faculty";
 export default async function handler(req, res) {
     try {
         if (req.method === "PUT") {
@@ -12,7 +13,7 @@ export default async function handler(req, res) {
             if (password !== confirmPassword) {
                 return res
                     .status(400)
-                    .json({ error: "Passwords do not match" });
+                    .json({ message: "Passwords do not match" });
             }
             if (password.length < 6) {
                 return res.status(400).json({
@@ -21,13 +22,18 @@ export default async function handler(req, res) {
             }
 
             if (!token) {
-                return res.status(400).json({ error: "No token" });
+                return res.status(400).json({ message: "No token found!" });
             }
 
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = decoded;
-            console.log(decoded);
-            const user = await User.findById(req.user._id);
+
+            let user;
+
+            if (decoded.userRole === "faculty") {
+                user = await Faculty.findById(decoded._id);
+            } else if (decoded.userRole === "student") {
+                user = await Student.findById(decoded._id);
+            }
 
             if (user) {
                 user.password = password;
@@ -35,14 +41,14 @@ export default async function handler(req, res) {
 
                 return res
                     .status(200)
-                    .json({ message: "success in updating user password" });
+                    .json({ message: "User password updated successfully!" });
             } else {
                 // console.log("user not found");
-                return res.status(400).send({ message: "user not found" });
+                return res.status(400).send({ message: "User not found!" });
             }
         }
     } catch (error) {
         // console.log("create-new-password", error);
-        return res.status(400).send({ message: "invalid link" });
+        return res.status(400).send({ message: "Invalid or expired link!" });
     }
 }

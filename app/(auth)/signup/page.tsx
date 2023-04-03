@@ -18,27 +18,16 @@ export default function SignUp() {
         e.preventDefault();
 
         try {
-            const { name, email, password } = form;
             const { data } = await axios.post("/api/register", {
-                name,
-                email,
-                password,
+                ...form,
+                userRole: "faculty",
             });
 
             if (data?.error) {
                 console.log(data.error);
-            } else {
-                try {
-                    const { data } = await axios.post("/api/verify-email", {
-                        email,
-                    });
-                    console.log(data);
-                } catch (error) {
-                    console.log(error);
-                }
             }
         } catch (error) {
-            console.log(error);
+            console.log(error?.response?.data || error?.message);
         }
     };
     const formConfig = {

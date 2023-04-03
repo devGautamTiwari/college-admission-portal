@@ -1,0 +1,91 @@
+.footer {
+    background: var(--complementary-color);
+    color: #fff;
+    padding: 4em 2em 3em;
+    font-family: "Montserrat", sans-serif;
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5em 2em;
+        width: 100%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    &__branding {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+        font-family: "EB Garamond", serif;
+
+        &__logo {
+            font-size: 2em;
+            font-weight: 800;
+            object-fit: contain;
+            max-width: 150px;
+            height: auto;
+        }
+        &__text {
+            font-size: 1.5em;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.2;
+        }
+    }
+    &__office {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+
+        &__heading {
+            font-size: 1.25em;
+            font-weight: 800;
+        }
+        &__links {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            gap: 1em;
+            & > li > a {
+                display: flex;
+                align-items: center;
+
+                gap: 0.25em;
+            }
+        }
+    }
+    &__website {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+
+        &__heading {
+            font-size: 1.25em;
+        }
+        &__links {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            gap: 0.5em;
+            & > li > a {
+                line-height: 1;
+            }
+        }
+    }
+    &__copyright {
+        font-size: 0.9em;
+        margin-top: 3em;
+    }
+    @media screen and (min-width: 900px) {
+        &__content {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        &__copyright {
+            text-align: center;
+        }
+    }
+}

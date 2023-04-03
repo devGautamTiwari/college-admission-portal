@@ -2,7 +2,8 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-import User from "../../../models/user";
+import Student from "../../../models/student";
+import Faculty from "../../../models/faculty";
 import dbConnect from "../../../config/dbConnect";
 
 export default NextAuth({
@@ -14,12 +15,17 @@ export default NextAuth({
             async authorize(credentials, _req) {
                 dbConnect();
 
-                const { email, password } = credentials;
+                const { email, password, userRole } = credentials;
+                let user = null;
 
-                const user = await User.findOne({ email });
+                if (userRole === "faculty") {
+                    user = await Faculty.findOne({ email });
+                } else if (userRole === "student") {
+                    user = await Student.findOne({ email });
+                }
 
                 if (!user) {
-                    throw new Error("Invalid Email or Password");
+                    throw new Error("Invalid Email!");
                 }
 
                 const isPasswordMatched = await bcrypt.compare(
@@ -28,7 +34,7 @@ export default NextAuth({
                 );
 
                 if (!isPasswordMatched) {
-                    throw new Error("Invalid Email or Password");
+                    throw new Error("Invalid Password!");
                 }
 
                 return user;

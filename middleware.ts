@@ -8,8 +8,6 @@ const defaultAuth = "/signin";
 const defaultAfterAuth = "/dashboard";
 
 export async function middleware(req: NextRequest) {
-    // console.log(req.nextUrl.pathname);
-    // when the url is an auth url
     if (authUrls.includes(req.nextUrl.pathname)) {
         const afterAuth = req.nextUrl.clone();
         afterAuth.pathname =

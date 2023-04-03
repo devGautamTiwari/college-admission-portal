@@ -1,8 +1,10 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
-import Navbar from "@/components/Navbar/Navbar";
 import "./globals.scss";
+import Navbar from "@/components/Navbar/Navbar";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import Loading from "./loading";
 
 export default function RootLayout({
     children,
@@ -28,6 +30,7 @@ export default function RootLayout({
                     <Navbar />
                     <main>{children}</main>
                 </SessionProvider>
+                {/* <Loading /> */}
             </body>
         </html>
     );

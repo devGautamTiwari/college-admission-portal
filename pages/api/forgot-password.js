@@ -1,6 +1,7 @@
 import dbConnect from "../../config/dbConnect";
-import sendEmail from "../../utils/sendEmail";
-import User from "../../models/user";
+import sendEmail from "../../lib/sendEmail";
+import Student from "../../models/student";
+import Faculty from "../../models/faculty";
 import absoluteUrl from "next-absolute-url";
 import jwt from "jsonwebtoken";
 
@@ -10,18 +11,31 @@ export default async function handler(req, res) {
     try {
         dbConnect();
         if (req.method === "POST") {
-            const { email } = req.body;
+            const { email, userRole } = req.body;
 
-            const user = await User.findOne({ email });
+            if (!email) {
+                return res.status(400).json({ message: "Email is required!" });
+            }
+
+            let user;
+            if (userRole === "faculty") {
+                user = await Faculty.findOne({ email });
+            } else if (userRole === "student") {
+                user = await Student.findOne({ email });
+            }
 
             if (!user) {
-                return res.status(404).json({ error: "user not found" });
+                return res.status(404).json({ message: "User not found!" });
             }
 
             const numberOfMinutes = 10;
-            const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-                expiresIn: Math.floor(numberOfMinutes * 60),
-            });
+            const token = jwt.sign(
+                { _id: user._id, userRole },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: Math.floor(numberOfMinutes * 60),
+                }
+            );
 
             const { origin } = absoluteUrl(req);
 
@@ -37,10 +51,10 @@ export default async function handler(req, res) {
             });
 
             return res.status(200).json({
-                message: `Email sent to ${user.email}, please check your email`,
+                message: `Email sent to ${user.email}, please check your email.`,
             });
         }
     } catch (error) {
-        console.log(error);
+        console.log(error?.response?.data || error?.message);
     }
 }

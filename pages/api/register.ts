@@ -1,18 +1,33 @@
-import User from "../../models/user";
-import dbConnect from "../../config/dbConnect";
 import { NextApiRequest, NextApiResponse } from "next";
+import absoluteUrl from "next-absolute-url";
+import axios from "axios";
+import Faculty from "../../models/faculty";
+import Student from "../../models/student";
+import dbConnect from "../../config/dbConnect";
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
     if (req.method === "POST") {
-        dbConnect();
-
-        const { name, email, password } = req.body;
-
-        const user = await User.create({ name, email, password });
-
-        res.status(201).json({ user });
+        await dbConnect();
+        try {
+            const formData = req.body;
+            let user;
+            if (formData.userRole === "faculty") {
+                user = await Faculty.create(formData);
+            } else if (formData.userRole === "student") {
+                user = await Student.create(formData);
+            }
+            const { origin } = absoluteUrl(req);
+            await axios.post(origin + "/api/verify-email", {
+                email: formData.email,
+                userRole: formData.userRole,
+            });
+            return res.status(201).json({ user });
+        } catch (error) {
+            console.log(error?.response?.data || error?.message);
+            return res.status(400).json({ message: error });
+        }
     }
 }

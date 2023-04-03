@@ -1,8 +1,8 @@
 "use client";
-import Form from "@/components/Form/Form";
 import axios from "axios";
-import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useState } from "react";
+const Form = dynamic(() => import("@/components/Form/Form"));
 interface Props {
     params: {
         token: string;

@@ -1,16 +1,27 @@
 import jwt from "jsonwebtoken";
-import User from "../../models/user";
-import sendEmail from "../../utils/sendEmail";
-import dbConnect from "../../config/dbConnect";
 import absoluteUrl from "next-absolute-url";
+import Faculty from "../../models/faculty";
+import Student from "../../models/student";
+import sendEmail from "../../lib/sendEmail";
+import dbConnect from "../../config/dbConnect";
 
 export default async function handler(req, res) {
     try {
         if (req.method === "POST") {
             dbConnect();
-            const { email } = req.body;
+            const { email, userRole } = req.body;
 
-            const user = await User.findOne({ email });
+            if (!email) {
+                return res.status(400).json({
+                    message: "Email is required!",
+                });
+            }
+            let user;
+            if (userRole === "faculty") {
+                user = await Faculty.findOne({ email });
+            } else if (userRole === "student") {
+                user = await Student.findOne({ email });
+            }
 
             // const token = jwt.sign(
             //     { _id: user._id },
@@ -19,10 +30,19 @@ export default async function handler(req, res) {
             //         expiresIn: Date.now() + 10 * 60,
             //     }
             // );
+            if (!user) {
+                return res.status(404).json({
+                    message: "User not found!",
+                });
+            }
             const numberOfMinutes = 10;
-            const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-                expiresIn: Math.floor(numberOfMinutes * 60),
-            });
+            const token = jwt.sign(
+                { _id: user._id, userRole },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: Math.floor(numberOfMinutes * 60),
+                }
+            );
 
             user.emailToken = token;
             await user.save();
@@ -40,7 +60,7 @@ export default async function handler(req, res) {
 
             await sendEmail({
                 to: user.email,
-                subject: "Verify your Email",
+                subject: "SAITM -Verify your email",
                 message: message,
             });
 
@@ -49,6 +69,9 @@ export default async function handler(req, res) {
             });
         }
     } catch (error) {
-        console.log(error);
+        console.log(error?.response?.data || error?.message);
+        return res.status(400).json({
+            message: "Something went wrong!",
+        });
     }
 }

@@ -1,32 +1,36 @@
 .main {
+    position: relative;
+    z-index: 1;
     min-height: 100vh;
+    overflow: hidden;
     font-family: "Montserrat", sans-serif;
 }
 
 .section {
     &__heading {
         font-size: 3em;
-        font-weight: 800;
+        // font-weight: 800;
     }
-    &__container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        // align-items: center;
-    }
-    &__hero {
-        $sidePadding: 5em;
 
+    &__hero {
+        --inline-padding: 2em;
+        --block-padding: 3em;
+        font-size: clamp(0.75em, 0.75vw, 1em);
+        text-align: center;
+        line-height: 1.1;
         position: relative;
+        z-index: 1;
         color: #fff;
-        background: url("/static/hero-bg.png");
+        background: url("/static/images/hero-bg.png");
         background-position: center;
         background-size: cover;
-        min-height: calc(100vh - var(--navbar-height));
+        background-attachment: fixed;
         display: flex;
-        align-items: flex-end;
-        padding: 10em $sidePadding;
-        z-index: 1;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - var(--navbar-height));
+        padding: var(--block-padding) var(--inline-padding);
+
         &::after {
             content: "";
             position: absolute;
@@ -40,22 +44,25 @@
             top: 0;
             left: 0;
             display: flex;
+            align-items: center;
             gap: 4px;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             font-weight: 600;
-            padding: 3em $sidePadding;
+            padding: 3em var(--inline-padding);
             opacity: 0.8;
         }
         &__content {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 1.5em;
         }
 
         &__heading {
+            font-family: "Delicious Handrawn", cursive;
             font-size: 3em;
-            line-height: 1.2;
+            line-height: 1.1;
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
         }
         &__scrolldown {
@@ -65,6 +72,10 @@
             right: 0;
 
             cursor: pointer;
+            & > img {
+                width: 3em;
+                height: 3em;
+            }
         }
         &__btngroup {
             display: flex;
@@ -73,28 +84,216 @@
             font-size: 1.25em;
             font-weight: 500;
         }
+        @media screen and (min-width: 700px) {
+            --inline-padding: 5em;
+            --block-padding: 8em;
+            font-size: 1em;
+            align-items: flex-end;
+            justify-content: flex-start;
+            text-align: left;
+            &__heading {
+                line-height: 1.25;
+            }
+            &__content {
+                align-items: flex-start;
+            }
+        }
     }
     &__about {
-        padding: 5em 2em;
+        padding: 5em 2em 4em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        background: radial-gradient(
+            49.94% 49.94% at 50% 50.06%,
+            #ffffff 52.64%,
+            #eaeaea 100%
+        );
+        &__container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px;
+        }
         &__content {
             margin-top: 1.5em;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
             gap: 2.5em;
             max-width: 1400px;
+
+            &__img {
+                object-fit: cover;
+                border-radius: 0.75em;
+                display: none;
+
+                @media screen and (min-width: 945px) {
+                    display: block;
+                    height: 100%;
+                }
+                // height: 100%;
+            }
             &__text {
                 display: flex;
                 flex-direction: column;
                 gap: 1em;
                 font-size: 1em;
-                font-weight: 500;
                 max-width: 600px;
             }
+            @media screen and (min-width: 945px) {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
         }
-        &__img {
-            object-fit: cover;
-            border-radius: 0.75em;
+        &__stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            // display: grid;
+            // grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+            // place-items: center;
+            gap: 2.5em 1em;
+            margin-top: 3.125em;
+            & > * {
+                flex: 1;
+                min-width: 210px;
+            }
+        }
+        &__stat {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            opacity: 30%;
+            &__number {
+                font-size: 2.5em;
+                font-weight: 800;
+                line-height: 1;
+            }
+            &__text {
+                font-size: 0.9375em;
+                font-weight: 400;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+        }
+    }
+    &__courses {
+        padding: 4em 3em;
+        position: relative;
+        z-index: 1;
+        &__container {
+            width: 100%;
+            max-width: 1200px;
+            margin-inline: auto;
+        }
+        &__cards {
+            display: flex;
+            gap: 3em;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 1em;
+        }
+        &__card {
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0px 16px 40px -8px rgba(0, 0, 0, 0.1);
+            padding: 1.5em 2.5em;
+            border-radius: 1em;
+        }
+        &__name {
+            font-size: 2em;
+            font-weight: 800;
+        }
+        &__duration {
+            opacity: 0.8;
+            &::before {
+                content: "Duration: ";
+            }
+            &::after {
+                content: " years";
+            }
+        }
+        &__fee {
+            font-size: 0.9375em;
+            font-weight: 500;
+            &::before {
+                content: "Rs. ";
+            }
+            &::after {
+                content: "/yr";
+            }
+        }
+        &__link {
+            text-decoration: underline;
+            color: #00e;
+        }
+        & .blurDeco {
+            --size: 300px;
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            border-radius: var(--size);
+            filter: blur(50px);
+            background: var(--primary-color);
+            top: 100%;
+            left: 100%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+    }
+    &__contactus {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+        & .blurDeco {
+            --size: 300px;
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            border-radius: var(--size);
+            filter: blur(50px);
+            background: var(--primary-color);
+            top: 100%;
+            left: 0;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+    }
+}
+
+.collegepromo {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    // max-height: 541px;
+    &__container {
+        position: relative;
+
+        z-index: 1;
+        &::before {
+            content: "";
+            inset: 0;
+            position: absolute;
+            background: url("/static/images/college-promo.png");
+            background-position: center;
+            background-size: cover;
+            background-repeat: repeat-x;
+
+            opacity: 0.2;
+            z-index: -1;
+        }
+        &::after {
+            content: "";
+            inset: 0;
+            position: absolute;
+            backdrop-filter: blur(12px);
+            z-index: -1;
         }
     }
 }

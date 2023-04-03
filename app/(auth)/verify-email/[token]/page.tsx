@@ -38,14 +38,14 @@ export default function EmailConfirm({ params }: Props) {
                 console.log(data.message);
                 setResponse({ error: false, message: data.message });
             } catch (error) {
-                console.log(error);
+                console.log(error?.response?.data || error?.message);
                 setResponse({
                     error: true,
                     message: error?.response?.data?.message || error?.message,
                 });
             } finally {
                 setLoading(false);
-                // setTimeout(() => router.replace("/dashboard"), 5000);
+                setTimeout(() => router.replace("/dashboard"), 5000);
             }
         },
         [router]
@@ -58,7 +58,7 @@ export default function EmailConfirm({ params }: Props) {
         <div className={styles.container}>
             {loading ? (
                 <Image
-                    src={require("/public/static/hourglass.svg").default}
+                    src={require("/public/static/images/hourglass.svg").default}
                     alt={"loading"}
                     width={96}
                     height={96}
@@ -68,9 +68,9 @@ export default function EmailConfirm({ params }: Props) {
                 <Image
                     src={
                         response.error
-                            ? require("/public/static/close--outline.svg")
+                            ? require("/public/static/images/close--outline.svg")
                                   .default
-                            : require("/public/static/checkmark--outline.svg")
+                            : require("/public/static/images/checkmark--outline.svg")
                                   .default
                     }
                     alt={response.error ? "error" : "success"}

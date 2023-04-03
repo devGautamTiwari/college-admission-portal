@@ -22,11 +22,11 @@ export default function sendEmail(options: {
         html: message,
     };
 
-    transporter.sendMail(mailOptions, function (err, info) {
-        if (err) {
-            console.log("Error while sending email", err);
+    transporter.sendMail(mailOptions, function (error, _info) {
+        if (error) {
+            console.log("Error while sending email", error);
         } else {
-            console.log("Email successfully sent", info);
+            console.log("Email successfully sent");
         }
     });
 }
