@@ -23,7 +23,7 @@ export default function Home() {
             const { data } = await axios.post("/api/contact", form);
             console.log(data);
             setForm({ name: "", email: "", subject: "", message: "" });
-        } catch (error) {
+        } catch (error: any) {
             console.log(error?.response?.data || error?.message);
         }
     };

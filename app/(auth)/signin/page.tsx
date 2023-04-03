@@ -26,7 +26,7 @@ export default function SignIn() {
 
             console.log(data);
             setForm({ email: "", password: "", role: "" });
-        } catch (error) {
+        } catch (error: any) {
             console.log(error?.response?.data || error?.message);
         }
     };

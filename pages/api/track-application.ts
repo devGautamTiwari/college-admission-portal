@@ -26,7 +26,7 @@ export default async function handler(
                 applicationNumber: application.applicationNumber,
             });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.log(error?.response?.data || error?.message);
         return res.status(400).json({ message: error });
     }

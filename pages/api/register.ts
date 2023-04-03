@@ -25,7 +25,7 @@ export default async function handler(
                 userRole: formData.userRole,
             });
             return res.status(201).json({ user });
-        } catch (error) {
+        } catch (error: any) {
             console.log(error?.response?.data || error?.message);
             return res.status(400).json({ message: error });
         }

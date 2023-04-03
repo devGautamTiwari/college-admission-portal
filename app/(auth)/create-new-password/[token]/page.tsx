@@ -36,7 +36,7 @@ export default function ResetPassword({ params }: Props) {
                 config
             );
             console.log(data.message);
-        } catch (error) {
+        } catch (error: any) {
             console.log(error?.response?.data || error?.message);
         }
     };

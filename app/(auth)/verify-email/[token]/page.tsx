@@ -37,7 +37,7 @@ export default function EmailConfirm({ params }: Props) {
                 );
                 console.log(data.message);
                 setResponse({ error: false, message: data.message });
-            } catch (error) {
+            } catch (error: any) {
                 console.log(error?.response?.data || error?.message);
                 setResponse({
                     error: true,

@@ -63,7 +63,7 @@ export default async function handler(
                 message: `Email sent to ${newUser.email}, please check your email.`,
             });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.log(error?.response?.data || error?.message);
         return res.status(400).json({ message: error });
     }

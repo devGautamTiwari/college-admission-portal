@@ -175,7 +175,7 @@ export default function ApplyNowPage() {
 
             console.log(data);
             setForm(emptyForm);
-        } catch (error) {
+        } catch (error: any) {
             console.log(error?.response?.data || error?.message);
             toast.error(error?.response?.data?.message);
         }
