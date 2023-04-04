@@ -48,7 +48,7 @@ export default async function handler(
 
             application.studentId = jwt.sign(
                 { studentId: newUser._id },
-                process.env.JWT_SECRET
+                process.env.JWT_SECRET || "BMHmR5NUq6Bpmc9woYQFOed02He5swHp"
             );
 
             await application.save();
