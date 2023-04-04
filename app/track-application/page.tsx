@@ -48,7 +48,8 @@ export default function TrackApplication() {
                     required: true,
                     placeholder: "Application number...",
                     value: applicationNumber,
-                    onChange: (e) => setApplicationNumber(e.target.value),
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                        setApplicationNumber(e.target.value),
                 },
             },
         ],

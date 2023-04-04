@@ -1,4 +1,12 @@
-export default function Select({ label, selectProps = {}, options }) {
+export default function Select({
+    label,
+    selectProps = {},
+    options,
+}: {
+    label: string;
+    selectProps?: any;
+    options: any[];
+}) {
     return (
         <div className={"input-group"}>
             <label htmlFor={selectProps?.id}>

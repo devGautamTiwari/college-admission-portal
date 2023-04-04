@@ -19,10 +19,16 @@ export default function RadioGroup({
     groupLabel,
     groupName,
     checked = "",
-    onChange = (e) => {
+    onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e);
     },
     list,
+}: {
+    groupLabel: string;
+    groupName: string;
+    checked?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    list: any;
 }) {
     return (
         <div className={"input-group"}>

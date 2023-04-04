@@ -8,13 +8,13 @@ const defaultCallbackUrl = "/dashboard";
 
 export default function SignUp() {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
-    const changeHandler = (e) => {
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm((currentForm) => ({
             ...currentForm,
             [e.target.name]: e.target.value,
         }));
     };
-    const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
@@ -35,7 +35,7 @@ export default function SignUp() {
         subtitle: "Create a faculty account here.",
         formProps: {
             autoComplete: "off",
-            onSubmit: submitHandler,
+            onSubmit: onSubmitHandler,
         },
         formInputs: [
             {
@@ -47,7 +47,7 @@ export default function SignUp() {
                     placeholder: "Name...",
                     required: true,
                     value: form.name,
-                    onChange: changeHandler,
+                    onChange: onChangeHandler,
                 },
             },
             {
@@ -59,7 +59,7 @@ export default function SignUp() {
                     placeholder: "Email address...",
                     required: true,
                     value: form.email,
-                    onChange: changeHandler,
+                    onChange: onChangeHandler,
                 },
             },
             {
@@ -71,7 +71,7 @@ export default function SignUp() {
                     placeholder: "Password...",
                     required: true,
                     value: form.password,
-                    onChange: changeHandler,
+                    onChange: onChangeHandler,
                 },
             },
         ],
