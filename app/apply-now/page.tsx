@@ -101,7 +101,7 @@ export default function ApplyNowPage() {
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.type === "file") {
-            if (e.target.files?.length === 0) return;
+            if (!e.target.files?.length) return;
             setForm({
                 ...form,
                 [e.target.name]: e.target.files[0],
