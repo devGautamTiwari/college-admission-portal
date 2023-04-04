@@ -19,18 +19,16 @@ export default function Navbar() {
                     saitm
                 </Link>
                 <ul className={styles.menu}>
-                    {
-                        !(
-                            session.data?.user?.userRole === "faculty" ||
-                            (session.data?.user?.userRole === "admin" && (
-                                <li>
-                                    <a href="/track-application">
-                                        Track your Application
-                                    </a>
-                                </li>
-                            ))
-                        )
-                    }
+                    {!(
+                        session.data?.user?.userRole === "faculty" ||
+                        session.data?.user?.userRole === "admin"
+                    ) && (
+                        <li>
+                            <a href="/track-application">
+                                Track your Application
+                            </a>
+                        </li>
+                    )}
 
                     {session.status === "authenticated" && (
                         <li onClick={() => signOut()}>Sign out</li>

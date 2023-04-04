@@ -2,7 +2,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer/Footer";
 import styles from "./page.module.scss";
@@ -16,7 +16,7 @@ export default function Home() {
         subject: "",
         message: "",
     });
-
+    const aboutRef = useRef<HTMLDivElement>(null);
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -168,9 +168,11 @@ export default function Home() {
                         Farrukhnagar, Harayana
                     </p>
 
-                    <a
-                        href="#about"
+                    <div
                         className={styles.section__hero__scrolldown}
+                        onClick={() => {
+                            aboutRef?.current?.scrollIntoView();
+                        }}
                     >
                         <Image
                             src={
@@ -179,9 +181,13 @@ export default function Home() {
                             }
                             alt="@"
                         />
-                    </a>
+                    </div>
                 </section>
-                <section id="about" className={styles.section__about}>
+                <section
+                    id="about"
+                    ref={aboutRef}
+                    className={styles.section__about}
+                >
                     <div className={styles.section__about__container}>
                         <h2 className={styles.section__heading}>About us</h2>
                         <div className={styles.section__about__content}>
@@ -312,6 +318,7 @@ export default function Home() {
                     />
                 </div>
                 <section id="courses" className={styles.section__courses}>
+                    <div className={styles.blurDeco}></div>
                     <div className={styles.section__courses__container}>
                         <h2 className={styles.section__heading}>Courses</h2>
                         <div className={styles.section__courses__cards}>
@@ -325,7 +332,7 @@ export default function Home() {
                                             styles.section__courses__name
                                         }
                                     >
-                                        {name}
+                                        {name.slice(0, 8)}
                                     </h3>
                                     <p
                                         className={
@@ -343,17 +350,16 @@ export default function Home() {
                                             styles.section__courses__link
                                         }
                                     >
-                                        Apply now &gt;
+                                        Apply now
                                     </Link>
                                 </div>
                             ))}
                         </div>
-                        <div className={styles.blurDeco}></div>
                     </div>
                 </section>
                 <section id="contact-us" className={styles.section__contactus}>
-                    <Form {...formConfig} />
                     <div className={styles.blurDeco}></div>
+                    <Form {...formConfig} />
                 </section>
 
                 {/* <div className={styles.blurDeco}></div> */}

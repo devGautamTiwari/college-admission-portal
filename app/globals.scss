@@ -13,6 +13,11 @@
     --border-color: rgba(88, 88, 88, 30%);
     --navbar-height: 60px;
     --toastify-color-progress-dark: var(--primary-color) !important;
+    --scrollbar-width: 12px;
+    --scrollbar-track-color: hsl(11, 100%, 90%);
+    --scrollbar-thumb-color: hsl(11, 100%, 70%);
+    --scrollbar-thumb-hover-color: hsl(11, 100%, 50%);
+    --scrollbar-button-color: hsl(11, 100%, 70%);
 }
 
 * {
@@ -23,11 +28,28 @@
     line-height: 1.5;
     -webkit-tap-highlight-color: transparent;
 }
+::-webkit-scrollbar {
+    width: var(--scrollbar-width);
 
+    &-track {
+        background: var(--scrollbar-track-color);
+    }
+    &-thumb {
+        background: var(--scrollbar-thumb-color);
+
+        &:hover {
+            background: var(--scrollbar-thumb-hover-color);
+        }
+    }
+    &-button {
+        background: var(--scrollbar-button-color);
+    }
+}
 html {
     height: 100%;
     scroll-behavior: smooth;
     scroll-padding-top: var(--navbar-height);
+    // custom scrollbar using ::-webkit-scrollbar
 }
 
 body {
@@ -42,8 +64,8 @@ body {
 
 main {
     min-height: 100vh;
-    padding-top: var(--navbar-height);
     margin: 0 auto;
+    overflow: hidden;
 }
 
 a {
@@ -119,7 +141,14 @@ select {
 
     & textarea {
         resize: vertical;
+        height: 15ex;
         max-height: 30ex;
+        min-height: 6ex;
+        &::-webkit-scrollbar {
+            &-button {
+                display: none;
+            }
+        }
     }
 }
 
@@ -178,7 +207,7 @@ select {
         transform: rotate(1turn);
     }
 }
-// @import "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap";
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 // @media (prefers-color-scheme: dark) {
 //     html {
 //         color-scheme: dark;

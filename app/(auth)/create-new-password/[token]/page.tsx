@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 const Form = dynamic(() => import("@/components/Form/Form"));
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 export default function ResetPassword({ params }: Props) {
     const { token } = params;
     const [form, setForm] = useState({ password: "", confirmPassword: "" });
-
+    const router = useRouter();
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm((currentForm) => ({
             ...currentForm,
@@ -36,6 +37,8 @@ export default function ResetPassword({ params }: Props) {
                 config
             );
             console.log(data.message);
+            setForm({ password: "", confirmPassword: "" });
+            setTimeout(() => router.replace("/signin"), 3000);
         } catch (error: any) {
             console.log(error?.response?.data || error?.message);
         }
