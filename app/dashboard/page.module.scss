@@ -1,0 +1,14 @@
+.col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    // gap: 2em;
+}
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2em;
+    padding: 2em;
+    border-bottom: 1px solid var(--border-color);
+}

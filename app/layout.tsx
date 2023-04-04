@@ -1,10 +1,9 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
-import "./globals.scss";
-import Navbar from "@/components/Navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import Loading from "./loading";
+import Navbar from "@/components/Navbar/Navbar";
+import "./globals.scss";
 
 export default function RootLayout({
     children,

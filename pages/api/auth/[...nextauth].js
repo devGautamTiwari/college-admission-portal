@@ -1,14 +1,23 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-
 import Student from "../../../models/student";
 import Faculty from "../../../models/faculty";
 import dbConnect from "../../../config/dbConnect";
 
 export default NextAuth({
-    session: {
-        strategy: "jwt",
+    session: { strategy: "jwt" },
+    callbacks: {
+        jwt: async ({ token, user }) => {
+            if (user) {
+                token.userRole = user.userRole;
+            }
+            return token;
+        },
+        session: async ({ session, token }) => {
+            session.user.userRole = token.userRole;
+            return session;
+        },
     },
     providers: [
         CredentialsProvider({

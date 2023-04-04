@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 const authUrls = ["/signin", "/signup"];
-const protectedUrls = ["/dashboard"];
+const protectedUrls = ["/dashboard", "/dashboard/*"];
 const defaultAuth = "/signin";
 const defaultAfterAuth = "/dashboard";
 
