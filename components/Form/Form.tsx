@@ -8,6 +8,7 @@ interface FormProps {
     branded?: boolean;
     title?: string;
     subtitle?: string;
+    titleProps?: {};
     formProps?: {};
     formInputs?: any[];
     submitBtn?: any;
@@ -19,6 +20,7 @@ export default function Form({
     branded = true,
     title = "",
     subtitle = "",
+    titleProps = {},
     formProps = { autoComplete: "on" },
     formInputs = [],
     submitBtn = { text: "Submit" },
@@ -41,12 +43,7 @@ export default function Form({
             )}
 
             <div className={styles.header}>
-                <h2
-                    className={styles.title}
-                    style={{
-                        fontSize: title.length > 19 ? "1.625em" : "3em",
-                    }}
-                >
+                <h2 className={styles.title} {...titleProps}>
                     {title}
                 </h2>
                 <p className={styles.subtitle}>{subtitle}</p>

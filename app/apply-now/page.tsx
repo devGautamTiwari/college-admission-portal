@@ -182,7 +182,9 @@ export default function ApplyNowPage() {
     };
     const formConfig = {
         branded: false,
-        title: "Admission Form",
+        title: "Admission form",
+        subtitle: "Fill the form to apply for admission in SAITM",
+        titleProps: { style: { fontSize: "2.5em" } },
         formProps: {
             onSubmit: onSubmitHandler,
         },
@@ -245,7 +247,7 @@ export default function ApplyNowPage() {
                     placeholder: "Date of Birth",
                     required: true,
                     id: "dateOfBirth",
-                    min: `${new Date().getFullYear() - MAX_AGE}-12-31`,
+                    min: `${new Date().getFullYear() - MAX_AGE}-01-01`,
                     max: `${new Date().getFullYear() - MIN_AGE}-12-31`,
                     value: form.dateOfBirth,
                     onChange: onChangeHandler,

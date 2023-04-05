@@ -6,10 +6,12 @@ import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer/Footer";
 import styles from "./page.module.scss";
+import { useSession } from "next-auth/react";
 
 const Form = dynamic(() => import("@/components/Form/Form"));
 
 export default function Home() {
+    const session = useSession();
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -93,7 +95,7 @@ export default function Home() {
         ],
         submitBtn: {
             text: "Send",
-            btnProps: { className: "btn btn-secondary" },
+            btnProps: { className: "btn btn-primary" },
         },
         // links: [
         //     {
@@ -135,26 +137,34 @@ export default function Home() {
                 <section className={styles.section__hero}>
                     <div className={styles.section__hero__content}>
                         <h1 className={styles.section__hero__heading}>
-                            Welcome to
-                            <br />
                             St. Andrews Institute
                             <br />
                             of Technology and Management
                         </h1>
                         <div className={styles.section__hero__btngroup}>
-                            <Link
-                                href={"/signin"}
-                                className="btn btn-primary"
-                                style={{ color: "var(--light-color)" }}
-                            >
-                                Sign in
-                            </Link>
-                            <Link
-                                href="/apply-now"
-                                className="btn btn-secondary"
-                            >
-                                Apply now
-                            </Link>
+                            {session.status === "authenticated" ? (
+                                <Link
+                                    href={"/dashboard"}
+                                    className="btn btn-secondary"
+                                >
+                                    Dashboard
+                                </Link>
+                            ) : (
+                                <Link
+                                    href={"/signin"}
+                                    className="btn btn-secondary"
+                                >
+                                    Sign in
+                                </Link>
+                            )}
+                            {!(session.status === "authenticated") && (
+                                <Link
+                                    href="/apply-now"
+                                    className="btn btn-primary"
+                                >
+                                    Apply now
+                                </Link>
+                            )}
                         </div>
                     </div>
                     <p className={styles.section__hero__location}>

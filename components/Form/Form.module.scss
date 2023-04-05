@@ -54,6 +54,7 @@
     margin-inline: auto;
     --gap: 2em;
     gap: 0.5em var(--gap);
+    margin-top: 0.25em;
     & > * + * {
         position: relative;
         &::before {

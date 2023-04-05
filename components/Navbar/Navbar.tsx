@@ -37,8 +37,7 @@ export default function Navbar() {
                         <li>
                             <Link
                                 href={"/apply-now"}
-                                className="btn btn-primary"
-                                style={{ color: "var(--light-color)" }}
+                                className="btn btn-secondary"
                             >
                                 Apply now
                             </Link>

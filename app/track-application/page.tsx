@@ -35,6 +35,7 @@ export default function TrackApplication() {
         title: "Track your application",
         subtitle:
             "Enter the application number that was sent on your email after submitting the admission form.",
+        titleProps: { style: { fontSize: "1.75em" } },
         formProps: {
             onSubmit: onSubmitHanlder,
         },

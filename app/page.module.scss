@@ -15,7 +15,8 @@
     &__hero {
         --inline-padding: 2em;
         --block-padding: 3em;
-        font-size: clamp(0.75em, 0.75vw, 1em);
+        font-size: 1em;
+        font-size: clamp(0.75em, 2vw, 1em);
         text-align: center;
         line-height: 1.1;
         position: relative;
@@ -61,7 +62,7 @@
         }
 
         &__heading {
-            font-size: 3em;
+            font-size: 2em;
             line-height: 1.1;
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
         }
@@ -92,6 +93,7 @@
             justify-content: flex-start;
             text-align: left;
             &__heading {
+                font-size: 3em;
                 line-height: 1.25;
             }
             &__content {
@@ -108,7 +110,7 @@
         background: radial-gradient(
             49.94% 49.94% at 50% 50.06%,
             #ffffff 52.64%,
-            #eaeaea 100%
+            #f0f0f0 100%
         );
         &__container {
             display: flex;
@@ -139,6 +141,7 @@
                 gap: 1em;
                 font-size: 1em;
                 max-width: 600px;
+                color: #666;
             }
             @media screen and (min-width: 945px) {
                 display: grid;
