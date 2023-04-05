@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import styles from "/home/shakti/Desktop/college-admission-portal/app/dashboard/page.module.scss"
+import styles from "../../page.module.scss"
 
 
 interface Props {
