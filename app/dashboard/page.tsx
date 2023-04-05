@@ -54,10 +54,10 @@ export default function Dashboard() {
         },
     ];
     return (
-        <div>
+        <div className={styles.body}>
             <div>
                 <RadioGroup
-                    groupLabel="Filters"
+                    groupLabel=""
                     groupName="filter"
                     checked={filter}
                     onChange={(e) => {
@@ -73,7 +73,7 @@ export default function Dashboard() {
                     list={filters}
                 />
             </div>
-            <div className={styles.col}>
+            <div className={styles.col} >
                 {applications.map(
                     (
                         application: {
@@ -81,6 +81,7 @@ export default function Dashboard() {
                             course: string;
                             name: string;
                             status: string;
+                            email: string;
                             _id: string;
                         },
                         index: number
@@ -94,11 +95,12 @@ export default function Dashboard() {
                                 )
                             }
                         >
-                            <p>{index + 1}</p>
-                            <p>{application.name}</p>
-                            <p>{application.course}</p>
-                            <p>{application.status}</p>
-                            <p>{application.applicationNumber}</p>
+                            <p className={styles.number}>{index + 1}</p>
+                            <p className={styles.name}>{application.name}</p>
+                            <p className={styles.course}>{application.course}</p>
+                            <p className={styles.status}>{application.status}</p>
+                            <p className={styles.applicationnumber}>{application.applicationNumber}</p>
+
                         </button>
                     )
                 )}

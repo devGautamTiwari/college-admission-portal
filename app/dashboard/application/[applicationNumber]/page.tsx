@@ -3,6 +3,8 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import styles from "../../page.module.scss"
+
 
 interface Props {
     params: {
@@ -60,7 +62,7 @@ export default function ApplicationPage({ params }: Props) {
     }, [getApplication]);
 
     return (
-        <div>
+        <div >
             <p>Name: {application.name}</p>
             <div>
                 Email:
