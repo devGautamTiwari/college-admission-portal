@@ -1,14 +1,42 @@
 .col {
     display: flex;
     flex-direction: column;
-    width: 100%;
     // gap: 2em;
 }
-
 .row {
+    
     display: flex;
-    flex-wrap: nowrap;
-    gap: 2em;
-    padding: 2em;
     border-bottom: 1px solid var(--border-color);
+    padding: 0.7em;
+    background: #f4eeee;    
+
+}
+
+
+.body{
+    
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.name{
+    max-width: 500px;
+    min-width: 250px;
+
+}   
+.course{
+    max-width: 300px;
+    min-width: 150px;
+}
+.status{
+    max-width: 300px;
+    min-width: 150px;
+}
+.applicationnumber{
+    max-width: 300px;
+    min-width: 150px;
 }
