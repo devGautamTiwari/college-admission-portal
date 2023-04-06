@@ -11,12 +11,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     const searchParams = useSearchParams();
     const callbackUrl =
         (searchParams?.get("callbackUrl") as string) || defaultCallbackUrl;
-    useEffect(() => {
-        if (session.status === "loading") {
-        } else if (session.status === "authenticated") {
-            router.replace(callbackUrl);
-        }
-    }, [callbackUrl, router, session]);
+    // useEffect(() => {
+    //     if (session.status === "loading") {
+    //     } else if (session.status === "authenticated") {
+    //         router.replace(callbackUrl);
+    //     }
+    // }, [callbackUrl, router, session]);
     return (
         <>
             <section className={styles.section}>

@@ -19,10 +19,7 @@ export default function Navbar() {
                     saitm
                 </Link>
                 <ul className={styles.menu}>
-                    {!(
-                        session.data?.user?.userRole === "faculty" ||
-                        session.data?.user?.userRole === "admin"
-                    ) && (
+                    {session.status === "unauthenticated" && (
                         <li>
                             <a href="/track-application">
                                 Track your Application

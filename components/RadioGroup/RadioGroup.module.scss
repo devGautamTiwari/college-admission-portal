@@ -7,6 +7,7 @@
         padding: 0.325em 1em;
         border-radius: 4px;
         cursor: pointer;
+        user-select: none;
     }
     & > input {
         position: absolute;
@@ -25,6 +26,7 @@
         opacity: 0.75;
         margin-bottom: 2px;
         line-height: 1.5;
+        user-select: none;
     }
     &__inputs {
         display: flex;

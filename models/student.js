@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
-
+import Application from "./application";
 const studentSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -38,5 +38,9 @@ studentSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
+studentSchema.pre("remove", function (next) {
+    Application.remove({ studentId: this._id }).exec();
+    next();
+});
 export default mongoose.models.Student ||
     mongoose.model("Student", studentSchema);

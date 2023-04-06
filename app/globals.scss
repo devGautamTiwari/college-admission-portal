@@ -14,6 +14,8 @@
     --btn-shift-color: currentColor;
     --border-color: rgba(88, 88, 88, 30%);
     --navbar-height: 60px;
+    --font-sans-serif: "Montserrat", sans-serif;
+    --font-serif: "EB Garamond", "Times New Roman", serif;
     --toastify-color-progress-dark: var(--primary-color) !important;
     --scrollbar-width: 12px;
     --scrollbar-track-color: hsl(11, 100%, 90%);
@@ -58,7 +60,7 @@ body {
     min-height: 100%;
     background: var(--bg-color);
     color: var(--fg-color);
-    font-family: "EB Garamond", "Times New Roman", serif;
+    font-family: var(--font-serif);
     &.dark {
         --primary-color: #3b0c01;
         --btn-primary-color: var(--primary-color);
@@ -126,6 +128,7 @@ select {
         font-size: 0.75em;
         opacity: 0.75;
         margin-bottom: 2px;
+        user-select: none;
     }
     & input,
     & textarea,

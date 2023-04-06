@@ -25,11 +25,11 @@ export default function RootLayout({
                     pauseOnHover
                     theme="dark"
                 />
+
                 <SessionProvider>
                     <Navbar />
                     <main>{children}</main>
                 </SessionProvider>
-                {/* <Loading /> */}
             </body>
         </html>
     );

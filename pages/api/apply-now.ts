@@ -44,13 +44,13 @@ export default async function handler(
             });
             const { user: newUser } = data;
 
-            const message = `<div>Your application has been received. Use the application no. below to track your application.<br/><strong>Application number: ${applicationNumber}</strong><br/>You can now sign in to the portal using a password. To create a password first, click on forgot password on the Sign in page</div>`;
+            const message = `<div>Your application has been received. Use the application no. below to track your application.<br/><strong>Application number: ${applicationNumber}</strong></div>`;
 
-            application.studentId = jwt.sign(
-                { studentId: newUser._id },
-                process.env.JWT_SECRET || "BMHmR5NUq6Bpmc9woYQFOed02He5swHp"
-            );
-
+            // application.studentId = jwt.sign(
+            //     { studentId: newUser._id },
+            //     process.env.JWT_SECRET || "BMHmR5NUq6Bpmc9woYQFOed02He5swHp"
+            // );
+            application.studentId = newUser._id;
             await application.save();
 
             await sendEmail({

@@ -2,7 +2,7 @@
     background: var(--complementary-color);
     color: #fff;
     padding: 4em 2em 3em;
-    font-family: "Montserrat", sans-serif;
+    font-family: var(--font-sans-serif);
     &__content {
         display: flex;
         flex-direction: column;
@@ -18,7 +18,7 @@
         align-items: center;
         justify-content: center;
         gap: 0.5em;
-        font-family: "EB Garamond", serif;
+        font-family: var(--font-serif);
 
         &__logo {
             font-size: 2em;

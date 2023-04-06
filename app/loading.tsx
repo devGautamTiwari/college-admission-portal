@@ -26,8 +26,8 @@ export default function Loading() {
                     padding: "1em",
                     animation: "rotate infinite 3s ease-in-out",
                 }}
-                width={100}
-                height={100}
+                width={90}
+                height={90}
             />
             <span>Loading...</span>
         </div>

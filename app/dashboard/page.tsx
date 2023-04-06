@@ -1,27 +1,48 @@
 "use client";
 
 import RadioGroup from "@/components/RadioGroup/RadioGroup";
+import StudentModal from "@/components/StudentModal/StudentModal";
 import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+
+import { useEffect, useReducer, useState } from "react";
 import styles from "./page.module.scss";
+
+const getApplications = async () => {
+    const { data } = await axios.get("/api/applications");
+    return data;
+};
+
 export default function Dashboard() {
-    const [_applications, _setApplications] = useState([]);
-    const [applications, setApplications] = useState([]);
-    const [filter, setFilter] = useState<string>("all");
-    const router = useRouter();
-    const getApplications = async () => {
-        const { data } = await axios.get("/api/applications");
-        return data;
-    };
+    const [_applications, _setApplications] = useState<[]>([]);
+    const [currentApplicationId, setCurrentApplicationId] =
+        useState<string>("");
+    const [filter, setFilter] = useState<string>("pending");
+    const [applications, setApplications] = useReducer(
+        (_oldVal: [], newVal: []): any => {
+            if (filter === "all") return _applications;
+            return newVal.filter(
+                (application: {
+                    applicationNumber: string;
+                    course: string;
+                    name: string;
+                    status: string;
+                    email: string;
+                    _id: string;
+                }) => application.status === filter
+            );
+        },
+        []
+    );
     useEffect(() => {
         const data = getApplications();
         data.then((res) => {
-            // console.log(res);
             _setApplications(res.applications);
-            setApplications(res.applications);
         });
-    }, []);
+    }, [currentApplicationId]);
+
+    useEffect(() => {
+        setApplications(_applications);
+    }, [_applications, filter]);
     const filters = [
         {
             label: "All",
@@ -54,57 +75,77 @@ export default function Dashboard() {
         },
     ];
     return (
-        <div className={styles.body}>
+        <div className={styles.container}>
+            <h1>Admission requests</h1>
             <div>
                 <RadioGroup
-                    groupLabel=""
+                    groupLabel="Filter"
                     groupName="filter"
                     checked={filter}
                     onChange={(e) => {
-                        setApplications(() => {
-                            if (e.target.value === "all") return _applications;
-                            return _applications.filter(
-                                (application) =>
-                                    application.status === e.target.value
-                            );
-                        });
                         setFilter(e.target.value);
                     }}
                     list={filters}
                 />
             </div>
-            <div className={styles.col} >
-                {applications.map(
-                    (
-                        application: {
-                            applicationNumber: string;
-                            course: string;
-                            name: string;
-                            status: string;
-                            email: string;
-                            _id: string;
-                        },
-                        index: number
-                    ) => (
-                        <button
-                            key={application.applicationNumber}
-                            className={styles.row}
-                            onClick={() =>
-                                router.push(
-                                    `/dashboard/application/${application.applicationNumber}`
+            <div className={styles.table__container}>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Status</th>
+                            <th>Application No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {applications.length ? (
+                            applications.map(
+                                (
+                                    application: {
+                                        applicationNumber: string;
+                                        course: string;
+                                        name: string;
+                                        status: string;
+                                        email: string;
+                                        _id: string;
+                                    },
+                                    index: number
+                                ) => (
+                                    <tr
+                                        key={application.applicationNumber}
+                                        onClick={() => {
+                                            setCurrentApplicationId(
+                                                application._id
+                                            );
+                                        }}
+                                    >
+                                        <td style={{ minWidth: "200px" }}>
+                                            {application.name}
+                                        </td>
+                                        <td>{application.course}</td>
+                                        <td>{application.status}</td>
+                                        <td style={{ minWidth: "165px" }}>
+                                            {application.applicationNumber}
+                                        </td>
+                                    </tr>
                                 )
-                            }
-                        >
-                            <p className={styles.number}>{index + 1}</p>
-                            <p className={styles.name}>{application.name}</p>
-                            <p className={styles.course}>{application.course}</p>
-                            <p className={styles.status}>{application.status}</p>
-                            <p className={styles.applicationnumber}>{application.applicationNumber}</p>
-
-                        </button>
-                    )
-                )}
+                            )
+                        ) : (
+                            <tr>
+                                <td colSpan={4} style={{ textAlign: "center" }}>
+                                    Nothing to show here
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
             </div>
+            <StudentModal
+                applicationId={currentApplicationId}
+                isOpen={!!currentApplicationId}
+                onClose={() => setCurrentApplicationId("")}
+            />
         </div>
     );
 }
