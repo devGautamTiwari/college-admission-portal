@@ -5,7 +5,7 @@ import StudentDashboard from "@/components/StudentDashboard/StudentDashboard";
 import { useSession } from "next-auth/react";
 
 export default function Dashboard() {
-    const session = useSession();
+    const session: any = useSession();
     if (
         session?.data?.user?.userRole === "faculty" ||
         session?.data?.user?.userRole === "admin"
