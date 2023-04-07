@@ -6,6 +6,7 @@ import Form from "@/components/Form/Form";
 import { storage } from "@/lib/firebase";
 import { toast } from "react-toastify";
 import styles from "./page.module.scss";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
 const RadioGroup = dynamic(() => import("@/components/RadioGroup/RadioGroup"));
 const Input = dynamic(() => import("@/components/Input/Input"));
 const Select = dynamic(() => import("@/components/Select/Select"));
@@ -98,7 +99,7 @@ const getDownloadURL = async (file: File) => {
 };
 export default function ApplyNowPage() {
     const [form, setForm] = useState<FormState>(emptyForm);
-
+    const [loading, setLoading] = useState(false);
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.type === "file") {
             if (!e.target.files?.length) return;
@@ -129,7 +130,7 @@ export default function ApplyNowPage() {
         e
     ) => {
         e.preventDefault();
-
+        setLoading(true);
         try {
             let metricMarksheetUrl = "";
             let interMarksheetUrl = "";
@@ -179,6 +180,8 @@ export default function ApplyNowPage() {
         } catch (error: any) {
             console.log(error?.response?.data || error?.message);
             toast.error(error?.response?.data?.message);
+        } finally {
+            setLoading(false);
         }
     };
     const formConfig = {
@@ -262,6 +265,7 @@ export default function ApplyNowPage() {
 
     return (
         <div className={styles.container}>
+            {loading && <LoadingComponent />}
             <Form {...formConfig}>
                 <RadioGroup
                     groupLabel="Gender"

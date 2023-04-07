@@ -10,7 +10,8 @@ export default function LoadingComponent() {
                 justifyContent: "center",
                 position: "fixed",
                 inset: "0px",
-                backgroundColor: "rgba(255, 255, 255, 0.8)",
+                backgroundColor: "rgba(255, 255, 255, 0.9)",
+                zIndex: 9999,
             }}
         >
             <Image

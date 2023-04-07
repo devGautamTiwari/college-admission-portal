@@ -5,7 +5,7 @@ import styles from "./page.module.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Image from "next/image";
-
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
 interface ApplicationData {
     applicationNumber: string;
     name: string;
@@ -20,7 +20,9 @@ export default function TrackApplication() {
         status: "",
         course: "",
     });
+    const [loading, setLoading] = useState(false);
     const getStatus = async (applicationNumber: string) => {
+        setLoading(true);
         const { data } = await axios.get(
             `/api/track-application?applicationNumber=${applicationNumber}`
         );
@@ -28,6 +30,7 @@ export default function TrackApplication() {
         setApplicationData({
             ...data,
         });
+        setLoading(false);
         return data;
     };
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,6 +79,7 @@ export default function TrackApplication() {
     };
     return (
         <div className={styles.container}>
+            {loading && <LoadingComponent />}
             <Form {...formProps}></Form>
             {applicationData.applicationNumber && (
                 <div className={styles.applicationData}>
