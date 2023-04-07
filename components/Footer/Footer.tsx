@@ -66,16 +66,18 @@ export default function Footer() {
                     <h3 className={styles.footer__website__heading}>Website</h3>
                     <ul className={styles.footer__website__links}>
                         <li>
-                            <Link href={"/"}>About us</Link>
+                            <Link href={"/#about"}>About us</Link>
                         </li>
                         <li>
-                            <Link href={"/"}>Courses</Link>
+                            <Link href={"/#courses"}>Courses</Link>
                         </li>
                         <li>
-                            <Link href={"/"}>Contact us</Link>
+                            <Link href={"/#contact-us"}>Contact us</Link>
                         </li>
                         <li>
-                            <Link href={"/"}>Track your application</Link>
+                            <Link href={"/track-application"}>
+                                Track your application
+                            </Link>
                         </li>
                     </ul>
                 </div>

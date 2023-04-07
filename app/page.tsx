@@ -134,7 +134,7 @@ export default function Home() {
     return (
         <>
             <div className={styles.main}>
-                <section className={styles.section__hero}>
+                <section className={styles.section__hero} id="hero">
                     <div className={styles.section__hero__content}>
                         <h1 className={styles.section__hero__heading}>
                             St. Andrews Institute
