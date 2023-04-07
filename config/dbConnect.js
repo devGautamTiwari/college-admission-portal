@@ -9,7 +9,7 @@ const dbConnect = () => {
     mongoose.connection.on("connected", () => {
         console.log("DB Connected");
     });
-    console.log(process.env.DB_URI);
+    // console.log(process.env.DB_URI);
     return mongoose.connect(process.env.DB_URI);
 };
 

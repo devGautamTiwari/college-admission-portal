@@ -19,7 +19,7 @@ export async function middleware(req: NextRequest) {
             secureCookie: process.env.NODE_ENV === "production",
         });
         afterAuth.searchParams.delete("callbackUrl");
-        console.log(session, !!session);
+
         if (!!session) return NextResponse.redirect(afterAuth);
     }
     // when the url is a protected url

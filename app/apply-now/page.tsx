@@ -286,7 +286,7 @@ export default function ApplyNowPage() {
                         type: "file",
                         id: "metricMarksheet",
                         name: "metricMarksheet",
-                        accept: ".pdf",
+                        accept: ".pdf,image/*",
                         required: true,
                         onChange: onChangeHandler,
                     }}
@@ -298,7 +298,7 @@ export default function ApplyNowPage() {
                         type: "file",
                         id: "interMarksheet",
                         name: "interMarksheet",
-                        accept: ".pdf",
+                        accept: ".pdf,image/*",
                         required:
                             form.courseType === "ug" || form.courseType === "pg"
                                 ? true
@@ -317,7 +317,7 @@ export default function ApplyNowPage() {
                             id: "graduationMarksheet",
                             name: "graduationMarksheet",
                             required: true,
-                            accept: ".pdf",
+                            accept: ".pdf,image/*",
                             onChange: onChangeHandler,
                         }}
                     >
