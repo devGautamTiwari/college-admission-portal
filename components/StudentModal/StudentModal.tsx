@@ -5,6 +5,45 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./StudentModal.module.scss";
 
+interface User {
+    _id: string;
+    name: string;
+    email: string;
+    phone: string;
+    gender: string;
+    aadhaar: string;
+    dateOfBirth: string;
+    validEmail: boolean;
+    userRole: string;
+    paymentStatus: string;
+    applicationNumber: string;
+    status: string;
+    course: string;
+    courseType: string;
+    metricMarksheet: string;
+    interMarksheet?: string;
+    graduationMarksheet?: string;
+}
+const emptyUser: User = {
+    _id: "",
+    name: "",
+    email: "",
+    phone: "",
+    gender: "",
+    aadhaar: "",
+    dateOfBirth: "",
+    validEmail: false,
+    userRole: "",
+    paymentStatus: "",
+    applicationNumber: "",
+    status: "",
+    course: "",
+    courseType: "",
+    metricMarksheet: "",
+    interMarksheet: "",
+    graduationMarksheet: "",
+};
+
 export default function StudentModal({
     applicationId = "",
     isOpen = false,
@@ -14,7 +53,7 @@ export default function StudentModal({
     isOpen: boolean;
     onClose: () => void;
 }) {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState<User>(emptyUser);
     const updateStatus = async (status: string) => {
         if (status === user?.status) {
         } else {
