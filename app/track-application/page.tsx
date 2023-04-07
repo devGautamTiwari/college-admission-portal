@@ -64,6 +64,9 @@ export default function TrackApplication() {
                 },
             },
         ],
+        submitBtn: {
+            text: "Submit",
+        },
         links: [
             {
                 text: "Sign in",
