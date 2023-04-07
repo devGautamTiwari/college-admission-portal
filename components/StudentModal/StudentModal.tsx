@@ -1,18 +1,12 @@
 "use client";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./StudentModal.module.scss";
 
-const getUser = async (applicationId: string) => {
-    const { data } = await axios.get(
-        `/api/applications?applicationId=${applicationId}`
-    );
-    return data;
-};
-
 export default function StudentModal({
-    applicationId,
+    applicationId = "",
     isOpen = false,
     onClose,
 }: {
@@ -32,12 +26,17 @@ export default function StudentModal({
         }
         onClose();
     };
+
+    const getUser = async (applicationId: string) => {
+        const { data } = await axios.get(
+            `/api/applications?applicationId=${applicationId}`
+        );
+        setUser(data.user);
+        return data;
+    };
+
     useEffect(() => {
-        const fetchUser = async () => {
-            const data = await getUser(applicationId);
-            setUser(data.user);
-        };
-        fetchUser();
+        getUser(applicationId);
         return () => {};
     }, [applicationId]);
 
@@ -69,16 +68,12 @@ export default function StudentModal({
                 <div className={styles.modal__body}>
                     <div className={styles.modal__body__section}>
                         <h3>Personal details</h3>
-                        <p>{user?.name}</p>
-                        <p>{user?.email}</p>
-                        <p>{user?.dateOfBirth}</p>
-                        <p>
-                            {user?.gender === "m"
-                                ? "Male"
-                                : user?.gender === "f"
-                                ? "Female"
-                                : "Prefer not to say"}
-                        </p>
+                        <p>Name: {user?.name}</p>
+                        <p>Email: {user?.email}</p>
+                        <p>Phone: {user?.phone}</p>
+                        <p>Aadhaar: {user?.aadhaar}</p>
+                        <p>Date of Birth: {user?.dateOfBirth}</p>
+                        <p>Gender: {user?.gender}</p>
                     </div>
                     <div className={styles.modal__body__section}>
                         <h3>Course details</h3>
@@ -97,10 +92,11 @@ export default function StudentModal({
                         <h3>Academic details</h3>
                         {user?.metricMarksheet && (
                             <>
-                                <p>10th Marksheet</p>
+                                <Link href={user?.metricMarksheet}>
+                                    10th Marksheet
+                                </Link>
                                 <iframe
                                     src={user?.metricMarksheet}
-                                    frameBorder="0"
                                     width={"90%"}
                                     height={500}
                                 ></iframe>
@@ -108,10 +104,11 @@ export default function StudentModal({
                         )}
                         {user?.interMarksheet && (
                             <>
-                                <p>12th Marksheet</p>
+                                <Link href={user?.interMarksheet}>
+                                    12th Marksheet
+                                </Link>
                                 <iframe
                                     src={user?.interMarksheet}
-                                    frameBorder="0"
                                     width={"90%"}
                                     height={500}
                                 ></iframe>
@@ -119,10 +116,11 @@ export default function StudentModal({
                         )}
                         {user?.graduationMarksheet && (
                             <>
-                                <p>Graduation Marksheet</p>
+                                <Link href={user?.graduationMarksheet}>
+                                    Graduation Marksheet
+                                </Link>
                                 <iframe
                                     src={user?.graduationMarksheet}
-                                    frameBorder="0"
                                     width={"90%"}
                                     height={500}
                                 ></iframe>
@@ -141,9 +139,9 @@ export default function StudentModal({
                     <button
                         type="button"
                         className={"btn btn-secondary"}
-                        onClick={() => updateStatus("declined")}
+                        onClick={() => updateStatus("rejected")}
                     >
-                        Decline
+                        Rejected
                     </button>
                     <button
                         type="button"

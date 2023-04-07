@@ -61,10 +61,6 @@ body {
     background: var(--bg-color);
     color: var(--fg-color);
     font-family: var(--font-serif);
-    &.dark {
-        --primary-color: #3b0c01;
-        --btn-primary-color: var(--primary-color);
-    }
 }
 
 main {
@@ -85,6 +81,10 @@ button {
     padding: 0.5em 1.5em;
     font: inherit;
     cursor: pointer;
+}
+
+iframe {
+    border: 0;
 }
 
 img {
@@ -120,13 +120,17 @@ select {
     background: transparent;
 }
 
+.small {
+    font-size: 0.75em;
+    opacity: 0.75;
+}
+
 .input-group {
     display: flex;
     flex-direction: column;
 
     & > label {
-        font-size: 0.75em;
-        opacity: 0.75;
+        @extend .small;
         margin-bottom: 2px;
         user-select: none;
     }
@@ -209,6 +213,9 @@ select {
     &-secondary {
         border: 1px solid currentColor;
         // --btn-fg-color: var(--primary-color);
+    }
+    &-fullwidth {
+        width: 100%;
     }
 }
 

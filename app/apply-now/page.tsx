@@ -32,19 +32,19 @@ const emptyForm = {
     phone: "",
     aadhaar: "",
     dateOfBirth: "",
-    gender: "pnts",
+    gender: "",
     course: "",
     courseType: "",
     metricMarksheet: undefined,
     interMarksheet: undefined,
     graduationMarksheet: undefined,
 };
-const radioList = [
+const genderList = [
     {
         label: "Female",
         inputProps: {
             id: "female",
-            value: "f",
+            value: "Female",
             required: true,
         },
     },
@@ -52,41 +52,41 @@ const radioList = [
         label: "Male",
         inputProps: {
             id: "male",
-            value: "m",
+            value: "Male",
         },
     },
     {
         label: "Prefer not to say",
         inputProps: {
             id: "pnts",
-            value: "pnts",
+            value: "Prefer not to say",
         },
     },
 ];
 const courses = [
     {
         name: "D. Pharma",
-        value: "dpharm",
+        value: "D. Pharma",
         type: "diploma",
     },
     {
         name: "B. Tech",
-        value: "btech",
+        value: "B. Tech",
         type: "ug",
     },
     {
         name: "BCA",
-        value: "bca",
+        value: "BCA",
         type: "ug",
     },
     {
         name: "BBA",
-        value: "bba",
+        value: "BBA",
         type: "ug",
     },
     {
         name: "MBA",
-        value: "mba",
+        value: "MBA",
         type: "pg",
     },
 ];
@@ -175,6 +175,7 @@ export default function ApplyNowPage() {
 
             console.log(data);
             setForm(emptyForm);
+            toast.success("Admission request sent successfully!");
         } catch (error: any) {
             console.log(error?.response?.data || error?.message);
             toast.error(error?.response?.data?.message);
@@ -267,7 +268,7 @@ export default function ApplyNowPage() {
                     groupName="gender"
                     checked={form.gender}
                     onChange={onChangeHandler}
-                    list={radioList}
+                    list={genderList}
                 />
                 <Select
                     label="Courses"

@@ -15,13 +15,6 @@ export default function DashboardLayout({
     else if (session.status === "unauthenticated") {
         router.push("/signin");
     } else {
-        if (
-            session.data?.user?.userRole === "faculty" ||
-            session.data?.user?.userRole === "admin"
-        ) {
-            return <>{children}</>;
-        } else {
-            return <>Student dashboard</>;
-        }
+        return <>{children}</>;
     }
 }

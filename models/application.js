@@ -20,6 +20,9 @@ const applicationSchema = new mongoose.Schema({
     status: {
         type: String,
     },
+    paymentStatus: {
+        type: String,
+    },
 });
 
 export default mongoose.models.Application ||

@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 const authUrls = ["/signin", "/signup"];
-const protectedUrls = ["/dashboard", "/dashboard/*"];
+const protectedUrls = ["/dashboard"];
 const defaultAuth = "/signin";
 const defaultAfterAuth = "/dashboard";
 
@@ -19,6 +19,7 @@ export async function middleware(req: NextRequest) {
             secureCookie: process.env.NODE_ENV === "production",
         });
         afterAuth.searchParams.delete("callbackUrl");
+        console.log(session, !!session);
         if (!!session) return NextResponse.redirect(afterAuth);
     }
     // when the url is a protected url

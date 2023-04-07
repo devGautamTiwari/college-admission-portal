@@ -23,11 +23,11 @@ export default function Form({
     titleProps = {},
     formProps = { autoComplete: "on" },
     formInputs = [],
-    submitBtn = { text: "Submit" },
+    submitBtn,
     links = [],
     children = null,
 }: FormProps) {
-    return formInputs.length > 0 ? (
+    return (
         <div className={styles.content}>
             {branded && (
                 <Image
@@ -41,13 +41,14 @@ export default function Form({
                     priority
                 />
             )}
-
-            <div className={styles.header}>
-                <h2 className={styles.title} {...titleProps}>
-                    {title}
-                </h2>
-                <p className={styles.subtitle}>{subtitle}</p>
-            </div>
+            {title && (
+                <div className={styles.header}>
+                    <h2 className={styles.title} {...titleProps}>
+                        {title}
+                    </h2>
+                    <p className={styles.subtitle}>{subtitle}</p>
+                </div>
+            )}
 
             <form className={styles.form} {...formProps}>
                 {formInputs.map(({ label, inputProps }) => (
@@ -78,5 +79,5 @@ export default function Form({
                 </div>
             </form>
         </div>
-    ) : null;
+    );
 }

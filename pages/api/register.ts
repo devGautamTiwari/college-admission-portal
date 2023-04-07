@@ -17,7 +17,11 @@ export default async function handler(
             if (formData.userRole === "faculty") {
                 user = await Faculty.create(formData);
             } else if (formData.userRole === "student") {
-                user = await Student.create(formData);
+                const { applicationNumber, ...studentData } = formData;
+                user = await Student.create({
+                    ...studentData,
+                    password: applicationNumber,
+                });
             }
             const { origin } = absoluteUrl(req);
             await axios.post(origin + "/api/verify-email", {

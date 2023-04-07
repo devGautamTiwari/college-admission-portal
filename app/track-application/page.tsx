@@ -4,27 +4,37 @@ import Form from "@/components/Form/Form";
 import styles from "./page.module.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
+interface ApplicationData {
+    applicationNumber: string;
+    name: string;
+    status: string;
+    course: string;
+}
 export default function TrackApplication() {
     const [applicationNumber, setApplicationNumber] = useState<string>("");
-    const [applicationData, setApplicationData] = useState<any>({
+    const [applicationData, setApplicationData] = useState<ApplicationData>({
         applicationNumber: "",
         name: "",
         status: "",
         course: "",
     });
-    const onSubmitHanlder = async (e: React.FormEvent<HTMLFormElement>) => {
+    const getStatus = async (applicationNumber: string) => {
+        const { data } = await axios.get(
+            `/api/track-application?applicationNumber=${applicationNumber}`
+        );
+        setApplicationNumber("");
+        setApplicationData({
+            ...data,
+        });
+        return data;
+    };
+    const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(applicationNumber);
+
         try {
-            const { data } = await axios.get(
-                `/api/track-application?applicationNumber=${applicationNumber}`
-            );
-            console.log(data);
-            setApplicationNumber("");
-            setApplicationData({
-                ...data,
-            });
+            getStatus(applicationNumber);
         } catch (error: any) {
             // console.log(error?.response?.data?.message || error?.message);
             toast.error(error?.response?.data?.message || error?.message);
@@ -37,7 +47,7 @@ export default function TrackApplication() {
             "Enter the application number that was sent on your email after submitting the admission form.",
         titleProps: { style: { fontSize: "1.75em" } },
         formProps: {
-            onSubmit: onSubmitHanlder,
+            onSubmit: onSubmitHandler,
         },
         formInputs: [
             {
@@ -66,22 +76,66 @@ export default function TrackApplication() {
             <Form {...formProps}></Form>
             {applicationData.applicationNumber && (
                 <div className={styles.applicationData}>
-                    <h3 className={styles.applicationData__title}>
+                    {/* <h3 className={styles.applicationData__title}>
                         Admission status
-                    </h3>
+                    </h3> */}
+                    <div className={styles.applicationData__status}>
+                        {
+                            <Image
+                                src={
+                                    applicationData.status === "rejected"
+                                        ? require("/public/static/images/close--outline.svg")
+                                              .default
+                                        : applicationData.status === "approved"
+                                        ? require("/public/static/images/checkmark--outline.svg")
+                                              .default
+                                        : require("/public/static/images/clock.svg")
+                                              .default
+                                }
+                                width={58}
+                                height={58}
+                                alt=""
+                                aria-hidden="true"
+                            />
+                        }
+                        <div className={styles.applicationData__item}>
+                            <h2>
+                                {applicationData.status
+                                    .slice(0, 1)
+                                    .toUpperCase() +
+                                    applicationData.status
+                                        .slice(1)
+                                        .toLowerCase()}
+                            </h2>
+                        </div>
+                    </div>
                     <div className={styles.applicationData__item}>
                         <span>
-                            Application no: {applicationData.applicationNumber}
+                            Dear <strong>{applicationData.name}</strong>
+                            ,<br />
+                            Your admission request with application number{" "}
+                            <strong>
+                                {applicationData.applicationNumber}
+                            </strong>{" "}
+                            is {applicationData.status}.
                         </span>
                     </div>
-                    <div className={styles.applicationData__item}>
-                        <span>Status: {applicationData.status}</span>
-                    </div>
-                    <div className={styles.applicationData__item}>
-                        <span>Name: {applicationData.name}</span>
-                    </div>
-                    <div className={styles.applicationData__item}>
-                        <span>Course: {applicationData.course}</span>
+
+                    <div
+                        className={styles.applicationData__refresh}
+                        onClick={() =>
+                            getStatus(applicationData.applicationNumber)
+                        }
+                        title="Refresh status"
+                    >
+                        <Image
+                            src={
+                                require("/public/static/images/refresh.svg")
+                                    .default
+                            }
+                            alt=""
+                            aria-hidden="true"
+                        />
                     </div>
                 </div>
             )}

@@ -145,7 +145,7 @@ export default function Home() {
                             {session.status === "authenticated" ? (
                                 <Link
                                     href={"/dashboard"}
-                                    className="btn btn-secondary"
+                                    className="btn btn-primary"
                                 >
                                     Dashboard
                                 </Link>

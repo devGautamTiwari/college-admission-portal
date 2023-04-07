@@ -14,9 +14,11 @@ export default async function handler(
 
             if (!!applicationId) {
                 const application = await Application.findById(applicationId);
+                // console.log(application);
                 if (application) {
                     const studentId = application.studentId;
                     const userFound = await Student.findById(studentId);
+                    console.log(userFound);
                     if (userFound) {
                         return res.status(200).json({
                             message: `Successfully fetched user details`,

@@ -4,6 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "@/components/Navbar/Navbar";
 import "./globals.scss";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
+import { Suspense } from "react";
 
 export default function RootLayout({
     children,
@@ -25,11 +27,12 @@ export default function RootLayout({
                     pauseOnHover
                     theme="dark"
                 />
-
-                <SessionProvider>
-                    <Navbar />
-                    <main>{children}</main>
-                </SessionProvider>
+                <Suspense fallback={<LoadingComponent />}>
+                    <SessionProvider>
+                        <Navbar />
+                        <main>{children}</main>
+                    </SessionProvider>
+                </Suspense>
             </body>
         </html>
     );

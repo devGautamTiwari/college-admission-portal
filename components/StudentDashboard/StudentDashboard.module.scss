@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding: 2em 0.5em;
+}
+.header {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 3em;
+    text-align: center;
+    margin-inline: auto;
+}
+.refresh {
+    cursor: pointer;
+}
+.btnGroup {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.form {
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75em;
+    }
+}
+
+.innerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    width: 100%;
+    max-width: 320px;
+    margin-inline: auto;
+}
+
+.informationCard {
+    &__heading {
+        margin-bottom: 0.25em;
+    }
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+    }
+}

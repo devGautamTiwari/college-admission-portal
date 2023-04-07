@@ -28,6 +28,8 @@ const studentSchema = new mongoose.Schema({
     metricMarksheet: { type: String },
     interMarksheet: { type: String },
     graduationMarksheet: { type: String },
+    applicationId: { type: String },
+    paymentStatus: { type: String },
 });
 
 studentSchema.pre("save", async function (next) {

@@ -35,16 +35,20 @@ export default async function handler(
                 applicationNumber,
                 status: "pending",
                 course: formData.course,
+                paymentStatus: "pending",
             });
 
             const { origin } = absoluteUrl(req);
             const { data } = await axios.post(origin + "/api/register", {
                 ...formData,
+                applicationId: application._id,
+                applicationNumber: application.applicationNumber,
+                paymentStatus: "pending",
                 userRole: "student",
             });
             const { user: newUser } = data;
 
-            const message = `<div>Your application has been received. Use the application no. below to track your application.<br/><strong>Application number: ${applicationNumber}</strong></div>`;
+            const message = `<div>Your application has been received!<br/>You can use the application no. to track your application and sign in to your dashboard.<br/><strong>Application number: ${applicationNumber}</strong></div>`;
 
             // application.studentId = jwt.sign(
             //     { studentId: newUser._id },
