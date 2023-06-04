@@ -22,7 +22,7 @@ export default function Navbar() {
                     {session.status === "unauthenticated" && (
                         <li>
                             <a href="/track-application">
-                                Track your Application
+                                Track an application
                             </a>
                         </li>
                     )}

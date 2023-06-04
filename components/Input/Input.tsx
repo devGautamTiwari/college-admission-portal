@@ -1,7 +1,7 @@
-interface InputProps {
+type InputProps = {
     children: JSX.Element | string;
     inputProps?: any;
-}
+};
 
 export default function Input({ children, inputProps }: InputProps) {
     const { multiline, ..._inputProps } = inputProps;

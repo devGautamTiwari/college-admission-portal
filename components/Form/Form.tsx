@@ -4,7 +4,7 @@ import styles from "./Form.module.scss";
 
 const Input = dynamic(() => import("../Input/Input"));
 
-interface FormProps {
+type FormProps = {
     branded?: boolean;
     title?: string;
     subtitle?: string;
@@ -14,7 +14,7 @@ interface FormProps {
     submitBtn?: any;
     links?: any[];
     children?: React.ReactNode;
-}
+};
 
 export default function Form({
     branded = true,

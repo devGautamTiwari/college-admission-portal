@@ -2,6 +2,7 @@ import dbConnect from "../../config/dbConnect";
 import Application from "../../models/application";
 import Student from "../../models/student";
 import { NextApiRequest, NextApiResponse } from "next/types";
+import { AxiosError } from "axios";
 
 export default async function handler(
     req: NextApiRequest,
@@ -52,7 +53,8 @@ export default async function handler(
 
             return res.status(404).json({ message: "Application not found!" });
         }
-    } catch (error: any) {
+    } catch (err) {
+        const error = err as AxiosError;
         console.log(error?.response?.data || error?.message);
         return res.status(400).json({ message: error });
     }

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import absoluteUrl from "next-absolute-url";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Faculty from "../../models/faculty";
 import Student from "../../models/student";
 import dbConnect from "../../config/dbConnect";
@@ -29,7 +29,8 @@ export default async function handler(
                 userRole: formData.userRole,
             });
             return res.status(201).json({ user });
-        } catch (error: any) {
+        } catch (err) {
+            const error = err as AxiosError;
             console.log(error?.response?.data || error?.message);
             return res.status(400).json({ message: error });
         }

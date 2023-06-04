@@ -76,7 +76,7 @@ export default function Footer() {
                         </li>
                         <li>
                             <Link href={"/track-application"}>
-                                Track your application
+                                Track an application
                             </Link>
                         </li>
                     </ul>

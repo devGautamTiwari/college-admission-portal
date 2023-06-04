@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./StudentModal.module.scss";
 
-interface User {
+type User = {
     _id: string;
     name: string;
     email: string;
@@ -23,7 +23,7 @@ interface User {
     metricMarksheet: string;
     interMarksheet?: string;
     graduationMarksheet?: string;
-}
+};
 const emptyUser: User = {
     _id: "",
     name: "",

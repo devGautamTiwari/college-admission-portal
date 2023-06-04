@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import Footer from "@/components/Footer/Footer";
 import styles from "./page.module.scss";
 import { useSession } from "next-auth/react";
-
+import CountUp from "react-countup";
 const Form = dynamic(() => import("@/components/Form/Form"));
 
 export default function Home() {
@@ -25,7 +25,8 @@ export default function Home() {
             const { data } = await axios.post("/api/contact", form);
             console.log(data);
             setForm({ name: "", email: "", subject: "", message: "" });
-        } catch (error: any) {
+        } catch (err) {
+            const error = err as AxiosError;
             console.log(error?.response?.data || error?.message);
         }
     };
@@ -256,7 +257,16 @@ export default function Home() {
                                         styles.section__about__stat__number
                                     }
                                 >
-                                    20000+
+                                    <CountUp
+                                        start={0}
+                                        end={20000}
+                                        duration={4}
+                                        suffix="+"
+                                        separator=","
+                                        enableScrollSpy={true}
+                                        scrollSpyDelay={0}
+                                        scrollSpyOnce={true}
+                                    />
                                 </p>
                                 <p
                                     className={
@@ -272,7 +282,15 @@ export default function Home() {
                                         styles.section__about__stat__number
                                     }
                                 >
-                                    22 acres
+                                    <CountUp
+                                        start={0}
+                                        end={22}
+                                        duration={3}
+                                        enableScrollSpy={true}
+                                        scrollSpyDelay={0}
+                                        scrollSpyOnce={true}
+                                    />{" "}
+                                    acres
                                 </p>
                                 <p
                                     className={
@@ -288,7 +306,14 @@ export default function Home() {
                                         styles.section__about__stat__number
                                     }
                                 >
-                                    100
+                                    <CountUp
+                                        start={0}
+                                        end={100}
+                                        duration={3}
+                                        enableScrollSpy={true}
+                                        scrollSpyDelay={0}
+                                        scrollSpyOnce={true}
+                                    />
                                 </p>
                                 <p
                                     className={
@@ -304,7 +329,15 @@ export default function Home() {
                                         styles.section__about__stat__number
                                     }
                                 >
-                                    10+
+                                    <CountUp
+                                        start={0}
+                                        end={10}
+                                        duration={3}
+                                        suffix="+"
+                                        enableScrollSpy={true}
+                                        scrollSpyDelay={0}
+                                        scrollSpyOnce={true}
+                                    />
                                 </p>
                                 <p
                                     className={
@@ -317,7 +350,7 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                <div className={styles.collegepromo__container}>
+                {/* <div className={styles.collegepromo__container}>
                     <Image
                         src={
                             require("/public/static/images/college-promo.png")
@@ -326,14 +359,14 @@ export default function Home() {
                         alt="Apply to SAITM college now"
                         className={styles.collegepromo}
                     />
-                </div>
+                </div> */}
                 <section id="courses" className={styles.section__courses}>
-                    <div className={styles.blurDeco}></div>
+                    {/* <div className={styles.blurDeco}></div> */}
                     <div className={styles.section__courses__container}>
                         <h2 className={styles.section__heading}>Courses</h2>
                         <div className={styles.section__courses__cards}>
                             {courses.map(({ name, duration, fee }) => (
-                                <div
+                                <Link href={`/apply-now?course=${name}`}
                                     className={styles.section__courses__card}
                                     key={name}
                                 >
@@ -354,25 +387,24 @@ export default function Home() {
                                     <p className={styles.section__courses__fee}>
                                         {fee}
                                     </p>
-                                    <Link
-                                        href="/apply-now"
+                                    <div
                                         className={
                                             styles.section__courses__link
                                         }
                                     >
                                         Apply now
-                                    </Link>
-                                </div>
+                                    </div>
+                                </Link>
                             ))}
                         </div>
                     </div>
                 </section>
                 <section id="contact-us" className={styles.section__contactus}>
-                    <div className={styles.blurDeco}></div>
-                    <Form {...formConfig} />
+                    {/* <div className={styles.blurDeco}></div> */}
+                    <div className={styles.section__contactus__container}>
+                        <Form {...formConfig} />
+                    </div>
                 </section>
-
-                {/* <div className={styles.blurDeco}></div> */}
             </div>
             <Footer />
         </>

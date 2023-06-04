@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { NextApiRequest, NextApiResponse } from "next/types";
 import dbConnect from "../../config/dbConnect";
 import Application from "../../models/application";
@@ -26,7 +27,8 @@ export default async function handler(
                 applicationNumber: application.applicationNumber,
             });
         }
-    } catch (error: any) {
+    } catch (err) {
+        const error = err as AxiosError;
         console.log(error?.response?.data || error?.message);
         return res.status(400).json({ message: error });
     }

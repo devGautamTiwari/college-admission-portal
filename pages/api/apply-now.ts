@@ -2,7 +2,7 @@ import dbConnect from "../../config/dbConnect";
 import sendEmail from "../../lib/sendEmail";
 import Student from "../../models/student";
 import Application from "../../models/application";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import jwt from "jsonwebtoken";
 import absoluteUrl from "next-absolute-url";
 import { NextApiRequest, NextApiResponse } from "next/types";
@@ -48,7 +48,7 @@ export default async function handler(
             });
             const { user: newUser } = data;
 
-            const message = `<div>Your application has been received!<br/>You can use the application no. to track your application and sign in to your dashboard.<br/><strong>Application number: ${applicationNumber}</strong></div>`;
+            const message = `<div>Your application has been received!<br/>You can use the application number to track your application and sign in to your dashboard.<br/><strong>Application number: ${applicationNumber}</strong></div>`;
 
             // application.studentId = jwt.sign(
             //     { studentId: newUser._id },
@@ -67,7 +67,8 @@ export default async function handler(
                 message: `Email sent to ${newUser.email}, please check your email.`,
             });
         }
-    } catch (error: any) {
+    } catch (err) {
+        const error = err as AxiosError;
         console.log(error?.response?.data || error?.message);
         return res.status(400).json({ message: error });
     }

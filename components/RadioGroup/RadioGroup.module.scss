@@ -18,7 +18,10 @@
             opacity: 0.75;
         }
         &:checked + label {
-            box-shadow: 0 0 0 1px currentColor;
+            $bg: #333;
+            box-shadow: 0 0 0 1px $bg;
+            background: $bg;
+            color: #fafafa;
         }
     }
 }

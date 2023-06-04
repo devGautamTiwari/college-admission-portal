@@ -9,7 +9,7 @@ import Input from "../Input/Input";
 import RadioGroup from "../RadioGroup/RadioGroup";
 import styles from "./StudentDashboard.module.scss";
 
-interface User {
+type User = {
     _id: string;
     name: string;
     email: string;
@@ -27,7 +27,7 @@ interface User {
     metricMarksheet: string;
     interMarksheet?: string;
     graduationMarksheet?: string;
-}
+};
 const emptyUser: User = {
     _id: "",
     name: "",
