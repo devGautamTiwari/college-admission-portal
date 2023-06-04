@@ -266,7 +266,13 @@ export default function Home() {
                                         enableScrollSpy={true}
                                         scrollSpyDelay={0}
                                         scrollSpyOnce={true}
-                                    />
+                                    >
+                                        {({ countUpRef }) => (
+                                            <>
+                                                <span ref={countUpRef} />
+                                            </>
+                                        )}
+                                    </CountUp>
                                 </p>
                                 <p
                                     className={
@@ -289,7 +295,13 @@ export default function Home() {
                                         enableScrollSpy={true}
                                         scrollSpyDelay={0}
                                         scrollSpyOnce={true}
-                                    />{" "}
+                                    >
+                                        {({ countUpRef }) => (
+                                            <>
+                                                <span ref={countUpRef} />
+                                            </>
+                                        )}
+                                    </CountUp>{" "}
                                     acres
                                 </p>
                                 <p
@@ -313,7 +325,13 @@ export default function Home() {
                                         enableScrollSpy={true}
                                         scrollSpyDelay={0}
                                         scrollSpyOnce={true}
-                                    />
+                                    >
+                                        {({ countUpRef }) => (
+                                            <>
+                                                <span ref={countUpRef} />
+                                            </>
+                                        )}
+                                    </CountUp>
                                 </p>
                                 <p
                                     className={
@@ -337,7 +355,13 @@ export default function Home() {
                                         enableScrollSpy={true}
                                         scrollSpyDelay={0}
                                         scrollSpyOnce={true}
-                                    />
+                                    >
+                                        {({ countUpRef }) => (
+                                            <>
+                                                <span ref={countUpRef} />
+                                            </>
+                                        )}
+                                    </CountUp>
                                 </p>
                                 <p
                                     className={
@@ -366,7 +390,8 @@ export default function Home() {
                         <h2 className={styles.section__heading}>Courses</h2>
                         <div className={styles.section__courses__cards}>
                             {courses.map(({ name, duration, fee }) => (
-                                <Link href={`/apply-now?course=${name}`}
+                                <Link
+                                    href={`/apply-now?course=${name}`}
                                     className={styles.section__courses__card}
                                     key={name}
                                 >
