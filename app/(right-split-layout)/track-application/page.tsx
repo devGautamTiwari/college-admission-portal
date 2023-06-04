@@ -22,26 +22,30 @@ export default function TrackApplication() {
     });
     const [loading, setLoading] = useState(false);
     const getStatus = async (applicationNumber: string) => {
-        setLoading(true);
         const { data } = await axios.get(
             `/api/track-application?applicationNumber=${applicationNumber}`
         );
-        setApplicationNumber("");
-        setApplicationData({
-            ...data,
-        });
-        setLoading(false);
+        console.log("data");
+
         return data;
     };
-    const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            getStatus(applicationNumber);
+            setLoading(true);
+            const data = await getStatus(applicationNumber);
+            setApplicationNumber("");
+            setApplicationData({
+                ...data,
+            });
         } catch (err) {
             const error = err as AxiosError;
-            // console.log(error?.response?.data?.message || error?.message);
-            toast.error(error?.response?.data?.message || error?.message);
+            const errorData = error?.response?.data as { message: string };
+            console.log(errorData?.message || error?.message);
+            toast.error(errorData?.message || error?.message);
+        } finally {
+            setLoading(false);
         }
     };
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import styles from "../verify-email.module.scss";
+import { toast } from "react-toastify";
 
 type Props = {
     params: {
@@ -39,10 +40,12 @@ export default function EmailConfirm({ params }: Props) {
                 setResponse({ error: false, message: data.message });
             } catch (err) {
                 const error = err as AxiosError;
-                console.log(error?.response?.data || error?.message);
+                const errorData = error?.response?.data as { message: string };
+                console.log(errorData?.message || error?.message);
+                toast.error(errorData?.message || error?.message);
                 setResponse({
                     error: true,
-                    message: error?.response?.data?.message || error?.message,
+                    message: errorData?.message || error?.message,
                 });
             } finally {
                 setLoading(false);
