@@ -12,7 +12,7 @@ export default async function handler(
     try {
         if (req.method === "PUT") {
             dbConnect();
-            const { token } = req.query;
+            const token = req.query.token || "";
 
             const { password, confirmPassword } = req.body;
 
@@ -31,7 +31,10 @@ export default async function handler(
                 return res.status(400).json({ message: "No token found!" });
             }
 
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const decoded = jwt.verify(
+                token as string,
+                process.env.JWT_SECRET as string
+            ) as jwt.JwtPayload & { userRole: string; _id: any };
 
             let user;
 

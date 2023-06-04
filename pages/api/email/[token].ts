@@ -18,10 +18,11 @@ export default async function handler(
                 return res.status(200).json({ message: "Token not found" });
             }
 
-            const decoded = await jwt.verify(
+            const decoded = jwt.verify(
                 token as string,
-                process.env.JWT_SECRET
-            );
+                process.env.JWT_SECRET as string
+            ) as jwt.JwtPayload & { userRole: string; _id: any };
+
             let user;
             if (decoded.userRole === "faculty") {
                 user = await Faculty.findById(decoded._id);

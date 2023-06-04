@@ -36,7 +36,7 @@ export default async function handler(
             const numberOfMinutes = 10;
             const token = jwt.sign(
                 { _id: user._id, userRole },
-                process.env.JWT_SECRET,
+                process.env.JWT_SECRET as string,
                 {
                     expiresIn: Math.floor(numberOfMinutes * 60),
                 }
