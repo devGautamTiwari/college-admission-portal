@@ -174,7 +174,7 @@ export default function ApplyNowPage() {
         } catch (err) {
             const error = err as AxiosError;
             console.log(error?.response?.data || error?.message);
-            toast.error(error?.response?.data?.message);
+            toast.error(error?.message);
         } finally {
             setLoading(false);
         }
