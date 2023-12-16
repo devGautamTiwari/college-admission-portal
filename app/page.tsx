@@ -112,6 +112,11 @@ export default function Home() {
             fee: "70,000",
         },
         {
+            name: "B. Pharma",
+            duration: "3",
+            fee: "80,000",
+        },
+        {
             name: "B. Tech",
             duration: "4",
             fee: "92,000",
@@ -128,6 +133,11 @@ export default function Home() {
         },
         {
             name: "MBA",
+            duration: "2",
+            fee: "100,000",
+        },
+        {
+            name: "M. Tech",
             duration: "2",
             fee: "100,000",
         },
